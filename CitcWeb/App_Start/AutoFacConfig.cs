@@ -14,7 +14,22 @@ namespace CitcWeb.App_Start
         {
             var builder = new ContainerBuilder();
             RegisterMvcComponent(builder);
+            RegisterGeneralComponent(builder);
+            RegisterRepositories(builder);
+            RegisterServices(builder);
             SetMvcResolver(builder);
+        }
+
+        private static void RegisterServices(ContainerBuilder builder)
+        {
+        }
+
+        private static void RegisterRepositories(ContainerBuilder builder)
+        {
+        }
+
+        private static void RegisterGeneralComponent(ContainerBuilder builder)
+        {
         }
 
         private static void SetMvcResolver(ContainerBuilder builder)
