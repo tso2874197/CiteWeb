@@ -4,39 +4,359 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CitcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="StudentTopic">
+    <Schema Namespace="CitcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnnualCourse">
           <Key>
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseSn" Type="int" Nullable="false" />
+          <Property Name="ClassSn" Type="int" Nullable="false" />
+          <Property Name="TotalHour" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ClassInfo">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsExist" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LifePicture">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PicturePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UploadTime" Type="datetime" Nullable="false" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayRank">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherKind" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="HourlyFee" Type="int" Nullable="false" />
+          <Property Name="IsDay" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentReport">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StudentNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReportTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="PdfPath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PptPath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassSn" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdNum" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="County" Type="nvarchar" MaxLength="15" />
+          <Property Name="PhoneNum" Type="varchar" MaxLength="10" />
+          <Property Name="MilNum" Type="varchar" MaxLength="6" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="PayBureauNum" Type="varchar" MaxLength="7" />
+          <Property Name="PayAccount" Type="varchar" MaxLength="14" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnnualCourse_ClassInfo">
+          <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
+          <End Role="AnnualCourse" Type="Self.AnnualCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="AnnualCourse">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnnualCourse_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="AnnualCourse" Type="Self.AnnualCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="AnnualCourse">
+              <PropertyRef Name="CourseSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentReport_ClassInfo">
+          <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
+          <End Role="StudentReport" Type="Self.StudentReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="StudentReport">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CitcModelStoreContainer">
-          <EntitySet Name="StudentTopic" EntityType="Self.StudentTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnnualCourse" EntityType="Self.AnnualCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassInfo" EntityType="Self.ClassInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LifePicture" EntityType="Self.LifePicture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayRank" EntityType="Self.PayRank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentReport" EntityType="Self.StudentReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnnualCourse_ClassInfo" Association="Self.FK_AnnualCourse_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="AnnualCourse" EntitySet="AnnualCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnnualCourse_Course" Association="Self.FK_AnnualCourse_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="AnnualCourse" EntitySet="AnnualCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentReport_ClassInfo" Association="Self.FK_StudentReport_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="StudentReport" EntitySet="StudentReport" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CitcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="StudentTopic">
+        <EntityContainer Name="CitcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnnualCourse" EntityType="CitcModel.AnnualCourse" />
+          <EntitySet Name="ClassInfo" EntityType="CitcModel.ClassInfo" />
+          <EntitySet Name="Course" EntityType="CitcModel.Course" />
+          <EntitySet Name="LifePicture" EntityType="CitcModel.LifePicture" />
+          <EntitySet Name="PayRank" EntityType="CitcModel.PayRank" />
+          <EntitySet Name="StudentReport" EntityType="CitcModel.StudentReport" />
+          <EntitySet Name="Teacher" EntityType="CitcModel.Teacher" />
+          <AssociationSet Name="FK_AnnualCourse_ClassInfo" Association="CitcModel.FK_AnnualCourse_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="AnnualCourse" EntitySet="AnnualCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnnualCourse_Course" Association="CitcModel.FK_AnnualCourse_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="AnnualCourse" EntitySet="AnnualCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentReport_ClassInfo" Association="CitcModel.FK_StudentReport_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="StudentReport" EntitySet="StudentReport" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AnnualCourse">
           <Key>
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseSn" Type="Int32" Nullable="false" />
+          <Property Name="ClassSn" Type="Int32" Nullable="false" />
+          <Property Name="TotalHour" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassInfo" Relationship="CitcModel.FK_AnnualCourse_ClassInfo" FromRole="AnnualCourse" ToRole="ClassInfo" />
+          <NavigationProperty Name="Course" Relationship="CitcModel.FK_AnnualCourse_Course" FromRole="AnnualCourse" ToRole="Course" />
         </EntityType>
-        <EntityContainer Name="CitcEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="StudentTopic" EntityType="Self.StudentTopic" />
-        </EntityContainer>
+        <EntityType Name="ClassInfo">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AnnualCourse" Relationship="CitcModel.FK_AnnualCourse_ClassInfo" FromRole="ClassInfo" ToRole="AnnualCourse" />
+          <NavigationProperty Name="StudentReport" Relationship="CitcModel.FK_StudentReport_ClassInfo" FromRole="ClassInfo" ToRole="StudentReport" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsExist" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AnnualCourse" Relationship="CitcModel.FK_AnnualCourse_Course" FromRole="Course" ToRole="AnnualCourse" />
+        </EntityType>
+        <EntityType Name="LifePicture">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PicturePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UploadTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayRank">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherKind" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="HourlyFee" Type="Int32" Nullable="false" />
+          <Property Name="IsDay" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentReport">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StudentNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ReportTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="PdfPath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PptPath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassSn" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassInfo" Relationship="CitcModel.FK_StudentReport_ClassInfo" FromRole="StudentReport" ToRole="ClassInfo" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdNum" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MilNum" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PayBureauNum" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="PayAccount" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnnualCourse_ClassInfo">
+          <End Type="CitcModel.ClassInfo" Role="ClassInfo" Multiplicity="1" />
+          <End Type="CitcModel.AnnualCourse" Role="AnnualCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="AnnualCourse">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnnualCourse_Course">
+          <End Type="CitcModel.Course" Role="Course" Multiplicity="1" />
+          <End Type="CitcModel.AnnualCourse" Role="AnnualCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="AnnualCourse">
+              <PropertyRef Name="CourseSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentReport_ClassInfo">
+          <End Type="CitcModel.ClassInfo" Role="ClassInfo" Multiplicity="1" />
+          <End Type="CitcModel.StudentReport" Role="StudentReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="StudentReport">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CitcModelStoreContainer" CdmEntityContainer="CitcEntities">
-          <EntitySetMapping Name="StudentTopic">
-            <EntityTypeMapping TypeName="CitcModel.StudentTopic">
-              <MappingFragment StoreEntitySet="StudentTopic">
+        <EntitySetMapping Name="AnnualCourse">
+            <EntityTypeMapping TypeName="CitcModel.AnnualCourse">
+              <MappingFragment StoreEntitySet="AnnualCourse">
+                <ScalarProperty Name="TotalHour" ColumnName="TotalHour" />
+                <ScalarProperty Name="ClassSn" ColumnName="ClassSn" />
+                <ScalarProperty Name="CourseSn" ColumnName="CourseSn" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassInfo">
+            <EntityTypeMapping TypeName="CitcModel.ClassInfo">
+              <MappingFragment StoreEntitySet="ClassInfo">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course">
+            <EntityTypeMapping TypeName="CitcModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="IsExist" ColumnName="IsExist" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LifePicture">
+            <EntityTypeMapping TypeName="CitcModel.LifePicture">
+              <MappingFragment StoreEntitySet="LifePicture">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+                <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayRank">
+            <EntityTypeMapping TypeName="CitcModel.PayRank">
+              <MappingFragment StoreEntitySet="PayRank">
+                <ScalarProperty Name="IsDay" ColumnName="IsDay" />
+                <ScalarProperty Name="HourlyFee" ColumnName="HourlyFee" />
+                <ScalarProperty Name="TeacherKind" ColumnName="TeacherKind" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentReport">
+            <EntityTypeMapping TypeName="CitcModel.StudentReport">
+              <MappingFragment StoreEntitySet="StudentReport">
+                <ScalarProperty Name="ClassSn" ColumnName="ClassSn" />
+                <ScalarProperty Name="PptPath" ColumnName="PptPath" />
+                <ScalarProperty Name="PdfPath" ColumnName="PdfPath" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="ReportTitle" ColumnName="ReportTitle" />
+                <ScalarProperty Name="StudentNo" ColumnName="StudentNo" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher">
+            <EntityTypeMapping TypeName="CitcModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="PayAccount" ColumnName="PayAccount" />
+                <ScalarProperty Name="PayBureauNum" ColumnName="PayBureauNum" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MilNum" ColumnName="MilNum" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdNum" ColumnName="IdNum" />
                 <ScalarProperty Name="Sn" ColumnName="Sn" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -3,7 +3,7 @@ using CitcWeb.Repository.Base;
 
 namespace CitcWeb.Repository.Interface
 {
-    public interface IStudentTopicRepository:IRepository<StudentTopic>
+    public interface IStudentTopicRepository:IRepository<StudentReport>
     {
     }
 }

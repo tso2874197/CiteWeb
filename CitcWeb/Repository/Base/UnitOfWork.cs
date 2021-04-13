@@ -13,7 +13,7 @@ namespace CitcWeb.Repository.Base
 
         public UnitOfWork()
         {
-            Context = new DbModel();
+            Context = new CitcEntities();
             Context.Database.Log = s => Debug.WriteLine(s);
         }
 

@@ -25,6 +25,12 @@ namespace CitcWeb.Domain
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<StudentTopic> StudentTopic { get; set; }
+        public virtual DbSet<AnnualCourse> AnnualCourse { get; set; }
+        public virtual DbSet<ClassInfo> ClassInfo { get; set; }
+        public virtual DbSet<Course> Course { get; set; }
+        public virtual DbSet<LifePicture> LifePicture { get; set; }
+        public virtual DbSet<PayRank> PayRank { get; set; }
+        public virtual DbSet<StudentReport> StudentReport { get; set; }
+        public virtual DbSet<Teacher> Teacher { get; set; }
     }
 }

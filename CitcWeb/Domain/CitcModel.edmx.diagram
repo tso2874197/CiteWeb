@@ -5,7 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="99844eee29c34869aaa04098b0c020d6" Name="Diagram1">
-        <EntityTypeShape EntityType="CitcModel.StudentTopic" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CitcModel.AnnualCourse" Width="1.5" PointX="6" PointY="4.875" />
+        <EntityTypeShape EntityType="CitcModel.ClassInfo" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="CitcModel.Course" Width="1.5" PointX="3.75" PointY="1.125" />
+        <EntityTypeShape EntityType="CitcModel.LifePicture" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CitcModel.PayRank" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CitcModel.StudentReport" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="CitcModel.Teacher" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="CitcModel.FK_AnnualCourse_ClassInfo" />
+        <AssociationConnector Association="CitcModel.FK_AnnualCourse_Course" />
+        <AssociationConnector Association="CitcModel.FK_StudentReport_ClassInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

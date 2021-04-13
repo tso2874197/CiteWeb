@@ -12,8 +12,17 @@ namespace CitcWeb.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentTopic
+    public partial class Teacher
     {
         public int Sn { get; set; }
+        public string IdNum { get; set; }
+        public string Name { get; set; }
+        public string County { get; set; }
+        public string PhoneNum { get; set; }
+        public string MilNum { get; set; }
+        public string Email { get; set; }
+        public string PayBureauNum { get; set; }
+        public string PayAccount { get; set; }
+        public bool IsValid { get; set; }
     }
 }
