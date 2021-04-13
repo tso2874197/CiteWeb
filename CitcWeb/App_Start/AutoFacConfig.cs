@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
+using CitcWeb.Repository;
+using CitcWeb.Repository.Base;
+using CitcWeb.Repository.Interface;
 
 namespace CitcWeb.App_Start
 {
@@ -26,10 +29,18 @@ namespace CitcWeb.App_Start
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
+            builder.RegisterType<LifePictureRepository>().As<ILifePictureRepository>().InstancePerRequest();
+            builder.RegisterType<StudentReportRepository>().As<IStudentTopicRepository>().InstancePerRequest();
+            builder.RegisterType<ClassInfoRepositoryRepository>().As<IClassInfoRepository>().InstancePerRequest();
+            builder.RegisterType<TeacherRepository>().As<ITeacherRepository>().InstancePerRequest();
+            builder.RegisterType<PayRankRepository>().As<IPayRankRepository>().InstancePerRequest();
+            builder.RegisterType<CourseRepository>().As<ICourseRepository>().InstancePerRequest();
+            builder.RegisterType<AnnualCourseRepository>().As<IAnnualCourseRepository>().InstancePerRequest();
         }
 
         private static void RegisterGeneralComponent(ContainerBuilder builder)
         {
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
         }
 
         private static void SetMvcResolver(ContainerBuilder builder)

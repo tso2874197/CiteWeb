@@ -1,6 +1,6 @@
 ﻿namespace CitcWeb.Repository.Interface
 {
-    public interface IClassInfo
+    public interface IClassInfoRepository
     {
     }
 }

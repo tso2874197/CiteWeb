@@ -203,11 +203,11 @@
     <Compile Include="Repository\Base\IRepository.cs" />
     <Compile Include="Repository\Base\IUnitOfWork.cs" />
     <Compile Include="Repository\Base\UnitOfWork.cs" />
-    <Compile Include="Repository\ClassInfoRepository.cs" />
+    <Compile Include="Repository\ClassInfoRepositoryRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
     <Compile Include="Repository\ICourseRepository.cs" />
     <Compile Include="Repository\Interface\IAnnualCourseRepository.cs" />
-    <Compile Include="Repository\Interface\IClassInfo.cs" />
+    <Compile Include="Repository\Interface\IClassInfoRepository.cs" />
     <Compile Include="Repository\Interface\ILifePictureRepository.cs" />
     <Compile Include="Repository\Interface\IPayRankRepository.cs" />
     <Compile Include="Repository\Interface\IStudentTopicRepository.cs" />
