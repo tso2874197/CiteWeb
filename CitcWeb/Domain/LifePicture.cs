@@ -18,5 +18,6 @@ namespace CitcWeb.Domain
         public string PicturePath { get; set; }
         public System.DateTime UploadTime { get; set; }
         public bool IsValid { get; set; }
+        public string PictureInfo { get; set; }
     }
 }

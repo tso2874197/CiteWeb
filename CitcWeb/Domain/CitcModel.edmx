@@ -39,6 +39,7 @@
           <Property Name="PicturePath" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UploadTime" Type="datetime" Nullable="false" />
           <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="PictureInfo" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="PayRank">
           <Key>
@@ -199,6 +200,7 @@
           <Property Name="PicturePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UploadTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="PictureInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PayRank">
           <Key>
@@ -313,6 +315,7 @@
           <EntitySetMapping Name="LifePicture">
             <EntityTypeMapping TypeName="CitcModel.LifePicture">
               <MappingFragment StoreEntitySet="LifePicture">
+                <ScalarProperty Name="PictureInfo" ColumnName="PictureInfo" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
                 <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
