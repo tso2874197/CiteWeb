@@ -1,27 +1,27 @@
 ﻿@model IEnumerable<CitcWeb.Domain.LifePicture>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "生活花絮";
 }
 
-<h2>Index</h2>
+<h2>生活花絮管理</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PicturePath)
+            檔名
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UploadTime)
+            上傳時間
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsValid)
+            是否顯示
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PictureInfo)
+            照片說明
         </th>
         <th></th>
     </tr>
@@ -29,7 +29,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PicturePath)
+            @item.PicturePath.Substring(7)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UploadTime)
@@ -41,9 +41,8 @@
             @Html.DisplayFor(modelItem => item.PictureInfo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
+            @Html.ActionLink("顯示切換", "ShowToggle", new { id = item.Sn }, new { @class = "btn btn-secondary"}) |
+            @Html.ActionLink("刪除", "Delete", new { id=item.Sn },new { @class="btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
         </td>
     </tr>
 }

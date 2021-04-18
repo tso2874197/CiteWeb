@@ -8,6 +8,8 @@ using Autofac.Integration.Mvc;
 using CitcWeb.Repository;
 using CitcWeb.Repository.Base;
 using CitcWeb.Repository.Interface;
+using CitcWeb.Services;
+using CitcWeb.Services.Interface;
 
 namespace CitcWeb.App_Start
 {
@@ -25,6 +27,7 @@ namespace CitcWeb.App_Start
 
         private static void RegisterServices(ContainerBuilder builder)
         {
+            builder.RegisterType<LifePictureService>().As<ILifePictureService>().InstancePerRequest();
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)

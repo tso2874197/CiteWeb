@@ -216,6 +216,8 @@
     <Compile Include="Repository\PayRankRepository.cs" />
     <Compile Include="Repository\StudentReportRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
+    <Compile Include="Services\Interface\ILifePictureService.cs" />
+    <Compile Include="Services\LifePictureService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -400,7 +402,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Upload\LifePhoto\" />
+    <Folder Include="Upload\LifePictures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

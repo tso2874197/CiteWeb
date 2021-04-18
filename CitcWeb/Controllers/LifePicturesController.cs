@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
+using CitcWeb.Services;
+using CitcWeb.Services.Interface;
 
 namespace CitcWeb.Controllers
 {
     public class LifePicturesController : Controller
     {
         private CitcEntities db = new CitcEntities();
+        private readonly ILifePictureService _lifePictureService;
+
+        public LifePicturesController(ILifePictureService lifePictureService)
+        {
+            _lifePictureService = lifePictureService;
+        }
 
         // GET: LifePictures
         public ActionResult Index()
@@ -38,7 +47,7 @@ namespace CitcWeb.Controllers
         // GET: LifePictures/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new LifePicture(){IsValid = true});
         }
 
         // POST: LifePictures/Create
@@ -46,16 +55,37 @@ namespace CitcWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Sn,PicturePath,UploadTime,IsValid,PictureInfo")] LifePicture lifePicture)
+        public ActionResult Create([Bind(Include = "IsValid,PictureInfo,file")] LifePicture lifePicture, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid==false)
+                return View(lifePicture);
+            if (file != null && file.ContentLength > 0)
             {
-                db.LifePicture.Add(lifePicture);
-                db.SaveChanges();
+                lifePicture.UploadTime=DateTime.Now;
+                lifePicture.PicturePath=SaveFile(file);
+
+                _lifePictureService.Add(lifePicture);
+
                 return RedirectToAction("Index");
             }
 
+
             return View(lifePicture);
+        }
+
+        private string SaveFile(HttpPostedFileBase file)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+            var path = Server.MapPath($"~/Upload/LifePictures/{DateTime.Now:yyyyMM}");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            path = Path.Combine(path, fileName);
+            file.SaveAs(path);
+            fileName = $"{DateTime.Now:yyyyMM}\\{Path.GetFileName(file.FileName)}";
+            return fileName;
         }
 
         // GET: LifePictures/Edit/5

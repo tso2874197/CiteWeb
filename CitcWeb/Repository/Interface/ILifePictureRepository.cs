@@ -1,6 +1,9 @@
-﻿namespace CitcWeb.Repository.Interface
+﻿using CitcWeb.Domain;
+using CitcWeb.Repository.Base;
+
+namespace CitcWeb.Repository.Interface
 {
-    public interface ILifePictureRepository
+    public interface ILifePictureRepository:IRepository<LifePicture>
     {
     }
 }
