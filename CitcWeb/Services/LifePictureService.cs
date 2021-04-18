@@ -1,4 +1,6 @@
-﻿using CitcWeb.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CitcWeb.Domain;
 using CitcWeb.Repository.Base;
 using CitcWeb.Repository.Interface;
 using CitcWeb.Services.Interface;
@@ -20,6 +22,11 @@ namespace CitcWeb.Services
         {
             _lifePictureRepository.Add(lifePicture);
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<LifePicture> GetLast10()
+        {
+            return _lifePictureRepository.Get().OrderByDescending(x => x.Sn).Take(10);
         }
     }
 }

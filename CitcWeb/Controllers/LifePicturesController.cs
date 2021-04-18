@@ -26,7 +26,7 @@ namespace CitcWeb.Controllers
         // GET: LifePictures
         public ActionResult Index()
         {
-            return View(db.LifePicture.ToList());
+            return View(_lifePictureService.GetLast10());
         }
 
         // GET: LifePictures/Details/5

@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CitcWeb.Services.Interface;
 
 namespace CitcWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILifePictureService _lifePictureService;
+
+        public HomeController(ILifePictureService lifePictureService)
+        {
+            _lifePictureService = lifePictureService;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View(_lifePictureService.GetLast10());
         }
 
         public ActionResult About()
