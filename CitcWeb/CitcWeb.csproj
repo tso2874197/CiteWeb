@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClassInfoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LifePicturesController.cs" />
     <Compile Include="Domain\AnnualCourse.cs">
@@ -395,6 +396,11 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\LifePictures\Create.cshtml" />
     <Content Include="Views\LifePictures\Index.cshtml" />
+    <Content Include="Views\ClassInfoes\Create.cshtml" />
+    <Content Include="Views\ClassInfoes\Delete.cshtml" />
+    <Content Include="Views\ClassInfoes\Details.cshtml" />
+    <Content Include="Views\ClassInfoes\Edit.cshtml" />
+    <Content Include="Views\ClassInfoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
