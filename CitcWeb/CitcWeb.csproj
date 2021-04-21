@@ -203,11 +203,11 @@
     <Compile Include="Repository\Base\IRepository.cs" />
     <Compile Include="Repository\Base\IUnitOfWork.cs" />
     <Compile Include="Repository\Base\UnitOfWork.cs" />
-    <Compile Include="Repository\ClassInfoRepositoryRepository.cs" />
+    <Compile Include="Repository\ClassInfoRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
-    <Compile Include="Repository\ICourseRepository.cs" />
     <Compile Include="Repository\Interface\IAnnualCourseRepository.cs" />
     <Compile Include="Repository\Interface\IClassInfoRepository.cs" />
+    <Compile Include="Repository\Interface\ICourseRepository.cs" />
     <Compile Include="Repository\Interface\ILifePictureRepository.cs" />
     <Compile Include="Repository\Interface\IPayRankRepository.cs" />
     <Compile Include="Repository\Interface\IStudentTopicRepository.cs" />
@@ -394,9 +394,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\LifePictures\Create.cshtml" />
-    <Content Include="Views\LifePictures\Delete.cshtml" />
-    <Content Include="Views\LifePictures\Details.cshtml" />
-    <Content Include="Views\LifePictures\Edit.cshtml" />
     <Content Include="Views\LifePictures\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

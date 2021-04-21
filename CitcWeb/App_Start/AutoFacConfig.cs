@@ -34,7 +34,7 @@ namespace CitcWeb.App_Start
         {
             builder.RegisterType<LifePictureRepository>().As<ILifePictureRepository>().InstancePerRequest();
             builder.RegisterType<StudentReportRepository>().As<IStudentTopicRepository>().InstancePerRequest();
-            builder.RegisterType<ClassInfoRepositoryRepository>().As<IClassInfoRepository>().InstancePerRequest();
+            builder.RegisterType<ClassInfoRepository>().As<IClassInfoRepository>().InstancePerRequest();
             builder.RegisterType<TeacherRepository>().As<ITeacherRepository>().InstancePerRequest();
             builder.RegisterType<PayRankRepository>().As<IPayRankRepository>().InstancePerRequest();
             builder.RegisterType<CourseRepository>().As<ICourseRepository>().InstancePerRequest();

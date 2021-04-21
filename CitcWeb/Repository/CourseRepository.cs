@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using CitcWeb.Domain;
 using CitcWeb.Repository.Base;
+using CitcWeb.Repository.Interface;
 
 namespace CitcWeb.Repository
 {
