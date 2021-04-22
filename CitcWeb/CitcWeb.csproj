@@ -156,7 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ClassInfoesController.cs" />
+    <Compile Include="Controllers\ClassInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LifePicturesController.cs" />
     <Compile Include="Domain\AnnualCourse.cs">
@@ -217,6 +217,8 @@
     <Compile Include="Repository\PayRankRepository.cs" />
     <Compile Include="Repository\StudentReportRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
+    <Compile Include="Services\ClassInfoService.cs" />
+    <Compile Include="Services\Interface\IClassInfoService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
     <Compile Include="Services\LifePictureService.cs" />
   </ItemGroup>
@@ -396,11 +398,11 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\LifePictures\Create.cshtml" />
     <Content Include="Views\LifePictures\Index.cshtml" />
-    <Content Include="Views\ClassInfoes\Create.cshtml" />
-    <Content Include="Views\ClassInfoes\Delete.cshtml" />
-    <Content Include="Views\ClassInfoes\Details.cshtml" />
-    <Content Include="Views\ClassInfoes\Edit.cshtml" />
-    <Content Include="Views\ClassInfoes\Index.cshtml" />
+    <Content Include="Views\ClassInfo\Create.cshtml" />
+    <Content Include="Views\ClassInfo\Delete.cshtml" />
+    <Content Include="Views\ClassInfo\Details.cshtml" />
+    <Content Include="Views\ClassInfo\Edit.cshtml" />
+    <Content Include="Views\ClassInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,33 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
+using CitcWeb.Services;
+using CitcWeb.Services.Interface;
 
 namespace CitcWeb.Controllers
 {
-    public class ClassInfoesController : Controller
+    public class ClassInfoController : Controller
     {
         private CitcEntities db = new CitcEntities();
+        private readonly IClassInfoService _classInfoService;
+
+        public ClassInfoController(IClassInfoService classInfoService)
+        {
+            _classInfoService = classInfoService;
+        }
 
         // GET: ClassInfoes
         public ActionResult Index()
         {
-            return View(db.ClassInfo.ToList());
+            var classInfos = _classInfoService.Get();
+            return View(classInfos);
         }
 
-        // GET: ClassInfoes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ClassInfo classInfo = db.ClassInfo.Find(id);
-            if (classInfo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(classInfo);
-        }
 
         // GET: ClassInfoes/Create
         public ActionResult Create()
@@ -50,8 +45,7 @@ namespace CitcWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ClassInfo.Add(classInfo);
-                db.SaveChanges();
+                _classInfoService.Add(classInfo);
                 return RedirectToAction("Index");
             }
 

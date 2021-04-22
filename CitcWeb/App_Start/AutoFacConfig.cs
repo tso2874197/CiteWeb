@@ -28,6 +28,7 @@ namespace CitcWeb.App_Start
         private static void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<LifePictureService>().As<ILifePictureService>().InstancePerRequest();
+            builder.RegisterType<ClassInfoService>().As<IClassInfoService>().InstancePerRequest();
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)

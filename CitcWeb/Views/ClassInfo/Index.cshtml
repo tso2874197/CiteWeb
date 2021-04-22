@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<CitcWeb.Domain.ClassInfo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "班隊資訊";
 }
 
-<h2>Index</h2>
+<h2>班隊資訊</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ClassName)
+            班隊名稱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            開訓日期
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            結訓日期
         </th>
         <th></th>
     </tr>
