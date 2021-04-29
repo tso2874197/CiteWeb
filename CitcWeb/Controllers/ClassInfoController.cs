@@ -41,7 +41,7 @@ namespace CitcWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Sn,ClassName,StartDate,EndDate")] ClassInfo classInfo)
+        public ActionResult Create([Bind(Include = "ClassName,StartDate,EndDate")] ClassInfo classInfo)
         {
             if (ModelState.IsValid)
             {

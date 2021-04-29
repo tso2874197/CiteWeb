@@ -35,9 +35,8 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
+            @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-Info" } ) |
+            @Html.ActionLink("刪除", "Delete", new { id=item.Sn },new { @class="btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
         </td>
     </tr>
 }
