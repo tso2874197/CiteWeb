@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CitcWeb.Domain.LifePicture>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.LifePicture>
 
 @{
     ViewBag.Title = "生活花絮";
@@ -9,6 +11,9 @@
 <p>
     @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
 </p>
+
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x}))
+
 <table class="table">
     <tr>
         <th>

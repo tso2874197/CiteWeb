@@ -1,0 +1,90 @@
+﻿@model CitcWeb.Domain.Teacher
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.County)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MilNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MilNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayBureauNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayBureauNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsValid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Sn }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

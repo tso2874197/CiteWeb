@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
 using CitcWeb.Services.Interface;
+using PagedList;
 
 namespace CitcWeb.Controllers
 {
@@ -20,9 +21,9 @@ namespace CitcWeb.Controllers
         }
 
         // GET: LifePictures
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            return View(_lifePictureService.Get());
+            return View(_lifePictureService.Get().ToPagedList(page,3));
         }
 
         // GET: LifePictures/Create

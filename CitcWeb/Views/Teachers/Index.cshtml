@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CitcWeb.Domain.Teacher>
+
+@{
+    ViewBag.Title = "教官資訊";
+}
+
+<h2>教官資訊</h2>
+
+<p>
+    @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            身分證字號
+        </th>
+        <th>
+            姓名
+        </th>
+        <th>
+            戶籍
+        </th>
+        <th>
+            手機
+        </th>
+        <th>
+            軍線
+        </th>
+        <th>
+            連絡信箱
+        </th>
+        <th>
+            轉帳局號
+        </th>
+        <th>
+            轉帳帳號
+        </th>
+        <th>
+            是否可選
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.County)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MilNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayBureauNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsValid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
+        </td>
+    </tr>
+}
+
+</table>
