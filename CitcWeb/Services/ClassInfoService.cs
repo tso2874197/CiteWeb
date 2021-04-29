@@ -27,5 +27,10 @@ namespace CitcWeb.Services
             _classInfoRepository.Add(classInfo);
             _unitOfWork.Commit();
         }
+
+        public ClassInfo GetById(int id)
+        {
+            return _classInfoRepository.GetById(id);
+        }
     }
 }

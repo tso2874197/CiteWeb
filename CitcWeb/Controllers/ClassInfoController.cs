@@ -59,7 +59,8 @@ namespace CitcWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ClassInfo classInfo = db.ClassInfo.Find(id);
+
+            var classInfo = _classInfoService.GetById(id.Value);
             if (classInfo == null)
             {
                 return HttpNotFound();
