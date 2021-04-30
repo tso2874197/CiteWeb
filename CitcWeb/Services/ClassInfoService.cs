@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CitcWeb.Domain;
 using CitcWeb.Repository.Base;
 using CitcWeb.Repository.Interface;
@@ -19,7 +20,7 @@ namespace CitcWeb.Services
 
         public IEnumerable<ClassInfo> Get()
         {
-            return _classInfoRepository.Get();
+            return _classInfoRepository.Get().OrderByDescending(x=>x.Sn);
         }
 
         public void Add(ClassInfo classInfo)
@@ -31,6 +32,12 @@ namespace CitcWeb.Services
         public ClassInfo GetById(int id)
         {
             return _classInfoRepository.GetById(id);
+        }
+
+        public void Update(ClassInfo classInfo)
+        {
+            _classInfoRepository.Update(classInfo);
+            _unitOfWork.Commit();
         }
     }
 }

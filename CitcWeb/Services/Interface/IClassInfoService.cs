@@ -9,5 +9,6 @@ namespace CitcWeb.Services.Interface
         IEnumerable<ClassInfo> Get();
         void Add(ClassInfo classInfo);
         ClassInfo GetById(int id);
+        void Update(ClassInfo classInfo);
     }
 }

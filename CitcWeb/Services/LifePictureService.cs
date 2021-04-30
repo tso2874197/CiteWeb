@@ -26,7 +26,7 @@ namespace CitcWeb.Services
 
         public IEnumerable<LifePicture> GetLast10()
         {
-            return _lifePictureRepository.Get(x=>x.IsValid).OrderByDescending(x => x.Sn).Take(10);
+            return _lifePictureRepository.Get(x=>x.IsValid).OrderByDescending(x => x.Sn);
         }
 
         public void Remove(int id)

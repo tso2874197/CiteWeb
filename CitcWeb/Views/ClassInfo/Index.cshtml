@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CitcWeb.Domain.ClassInfo>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.ClassInfo>
 
 @{
     ViewBag.Title = "班隊資訊";
@@ -9,6 +11,7 @@
 <p>
     @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
 </p>
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x}))
 <table class="table">
     <tr>
         <th>
@@ -35,8 +38,8 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" } ) |
-            @Html.ActionLink("刪除", "Delete", new { id=item.Sn },new { @class="btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
+            @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" } )
+            @*@Html.ActionLink("刪除", "Delete", new { id=item.Sn },new { @class="btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })*@
         </td>
     </tr>
 }
