@@ -12,25 +12,18 @@ namespace CitcWeb.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class ClassInfo
+    public partial class BookInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ClassInfo()
+        public BookInfo()
         {
-            this.AnnualCourse = new HashSet<AnnualCourse>();
-            this.StudentReport = new HashSet<StudentReport>();
             this.BorrowHistory = new HashSet<BorrowHistory>();
         }
     
         public int Sn { get; set; }
-        public string ClassName { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public string BookName { get; set; }
+        public string BookNumber { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AnnualCourse> AnnualCourse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentReport> StudentReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BorrowHistory> BorrowHistory { get; set; }
     }

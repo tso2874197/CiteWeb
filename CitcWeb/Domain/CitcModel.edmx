@@ -14,6 +14,25 @@
           <Property Name="ClassSn" Type="int" Nullable="false" />
           <Property Name="TotalHour" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="BookInfo">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="BookNumber" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BorrowHistory">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookInfoSn" Type="int" Nullable="false" />
+          <Property Name="ClassInfoSn" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BorrowTime" Type="datetime" Nullable="false" />
+          <Property Name="ReturnTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="ClassInfo">
           <Key>
             <PropertyRef Name="Sn" />
@@ -103,6 +122,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BorrowHistory_BookInfo">
+          <End Role="BookInfo" Type="Self.BookInfo" Multiplicity="1" />
+          <End Role="BorrowHistory" Type="Self.BorrowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="BorrowHistory">
+              <PropertyRef Name="BookInfoSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BorrowHistory_ClassInfo">
+          <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
+          <End Role="BorrowHistory" Type="Self.BorrowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="BorrowHistory">
+              <PropertyRef Name="ClassInfoSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentReport_ClassInfo">
           <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
           <End Role="StudentReport" Type="Self.StudentReport" Multiplicity="*" />
@@ -117,6 +160,8 @@
         </Association>
         <EntityContainer Name="CitcModelStoreContainer">
           <EntitySet Name="AnnualCourse" EntityType="Self.AnnualCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookInfo" EntityType="Self.BookInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BorrowHistory" EntityType="Self.BorrowHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassInfo" EntityType="Self.ClassInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LifePicture" EntityType="Self.LifePicture" Schema="dbo" store:Type="Tables" />
@@ -130,6 +175,14 @@
           <AssociationSet Name="FK_AnnualCourse_Course" Association="Self.FK_AnnualCourse_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="AnnualCourse" EntitySet="AnnualCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BorrowHistory_BookInfo" Association="Self.FK_BorrowHistory_BookInfo">
+            <End Role="BookInfo" EntitySet="BookInfo" />
+            <End Role="BorrowHistory" EntitySet="BorrowHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BorrowHistory_ClassInfo" Association="Self.FK_BorrowHistory_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="BorrowHistory" EntitySet="BorrowHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_StudentReport_ClassInfo" Association="Self.FK_StudentReport_ClassInfo">
             <End Role="ClassInfo" EntitySet="ClassInfo" />
@@ -160,6 +213,16 @@
             <End Role="ClassInfo" EntitySet="ClassInfo" />
             <End Role="StudentReport" EntitySet="StudentReport" />
           </AssociationSet>
+          <EntitySet Name="BookInfo" EntityType="CitcModel.BookInfo" />
+          <EntitySet Name="BorrowHistory" EntityType="CitcModel.BorrowHistory" />
+          <AssociationSet Name="FK_BorrowHistory_BookInfo" Association="CitcModel.FK_BorrowHistory_BookInfo">
+            <End Role="BookInfo" EntitySet="BookInfo" />
+            <End Role="BorrowHistory" EntitySet="BorrowHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BorrowHistory_ClassInfo" Association="CitcModel.FK_BorrowHistory_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="BorrowHistory" EntitySet="BorrowHistory" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AnnualCourse">
           <Key>
@@ -182,6 +245,7 @@
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AnnualCourse" Relationship="CitcModel.FK_AnnualCourse_ClassInfo" FromRole="ClassInfo" ToRole="AnnualCourse" />
           <NavigationProperty Name="StudentReport" Relationship="CitcModel.FK_StudentReport_ClassInfo" FromRole="ClassInfo" ToRole="StudentReport" />
+          <NavigationProperty Name="BorrowHistory" Relationship="CitcModel.FK_BorrowHistory_ClassInfo" FromRole="ClassInfo" ToRole="BorrowHistory" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -277,6 +341,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BookInfo">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="BookNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BorrowHistory" Relationship="CitcModel.FK_BorrowHistory_BookInfo" FromRole="BookInfo" ToRole="BorrowHistory" />
+        </EntityType>
+        <EntityType Name="BorrowHistory">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookInfoSn" Type="Int32" Nullable="false" />
+          <Property Name="ClassInfoSn" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BorrowTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReturnTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BookInfo" Relationship="CitcModel.FK_BorrowHistory_BookInfo" FromRole="BorrowHistory" ToRole="BookInfo" />
+          <NavigationProperty Name="ClassInfo" Relationship="CitcModel.FK_BorrowHistory_ClassInfo" FromRole="BorrowHistory" ToRole="ClassInfo" />
+        </EntityType>
+        <Association Name="FK_BorrowHistory_BookInfo">
+          <End Type="CitcModel.BookInfo" Role="BookInfo" Multiplicity="1" />
+          <End Type="CitcModel.BorrowHistory" Role="BorrowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="BorrowHistory">
+              <PropertyRef Name="BookInfoSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BorrowHistory_ClassInfo">
+          <End Type="CitcModel.ClassInfo" Role="ClassInfo" Multiplicity="1" />
+          <End Type="CitcModel.BorrowHistory" Role="BorrowHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="BorrowHistory">
+              <PropertyRef Name="ClassInfoSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -360,6 +470,27 @@
                 <ScalarProperty Name="County" ColumnName="County" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IdNum" ColumnName="IdNum" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookInfo">
+            <EntityTypeMapping TypeName="CitcModel.BookInfo">
+              <MappingFragment StoreEntitySet="BookInfo">
+                <ScalarProperty Name="BookNumber" ColumnName="BookNumber" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BorrowHistory">
+            <EntityTypeMapping TypeName="CitcModel.BorrowHistory">
+              <MappingFragment StoreEntitySet="BorrowHistory">
+                <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+                <ScalarProperty Name="BorrowTime" ColumnName="BorrowTime" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="ClassInfoSn" ColumnName="ClassInfoSn" />
+                <ScalarProperty Name="BookInfoSn" ColumnName="BookInfoSn" />
                 <ScalarProperty Name="Sn" ColumnName="Sn" />
               </MappingFragment>
             </EntityTypeMapping>

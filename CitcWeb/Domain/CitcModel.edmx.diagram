@@ -15,6 +15,10 @@
         <AssociationConnector Association="CitcModel.FK_AnnualCourse_ClassInfo" />
         <AssociationConnector Association="CitcModel.FK_AnnualCourse_Course" />
         <AssociationConnector Association="CitcModel.FK_StudentReport_ClassInfo" />
+        <EntityTypeShape EntityType="CitcModel.BookInfo" Width="1.5" PointX="3.75" PointY="8.125" />
+        <EntityTypeShape EntityType="CitcModel.BorrowHistory" Width="1.5" PointX="6" PointY="7.75" />
+        <AssociationConnector Association="CitcModel.FK_BorrowHistory_BookInfo" />
+        <AssociationConnector Association="CitcModel.FK_BorrowHistory_ClassInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

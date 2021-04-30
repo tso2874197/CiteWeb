@@ -32,5 +32,7 @@ namespace CitcWeb.Domain
         public virtual DbSet<PayRank> PayRank { get; set; }
         public virtual DbSet<StudentReport> StudentReport { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
+        public virtual DbSet<BookInfo> BookInfo { get; set; }
+        public virtual DbSet<BorrowHistory> BorrowHistory { get; set; }
     }
 }

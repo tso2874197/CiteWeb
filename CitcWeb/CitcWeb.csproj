@@ -170,6 +170,12 @@
     <Compile Include="Domain\AnnualCourse.cs">
       <DependentUpon>CitcModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\BookInfo.cs">
+      <DependentUpon>CitcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\BorrowHistory.cs">
+      <DependentUpon>CitcModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\CitcModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
