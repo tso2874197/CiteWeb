@@ -1,0 +1,8 @@
+﻿#pageTitle:hover {
+    color: green;
+    cursor: pointer;
+}
+
+#searchDiv {
+    display: none;
+}

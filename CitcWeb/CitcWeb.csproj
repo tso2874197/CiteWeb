@@ -212,9 +212,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CourseCsvModel.cs" />
     <Compile Include="Models\Csv\CsvableBase.cs" />
     <Compile Include="Models\Csv\CsvReader.cs" />
     <Compile Include="Models\Csv\CsvWriter.cs" />
+    <Compile Include="Models\TeacherCsvModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AnnualCourseRepository.cs" />
     <Compile Include="Repository\Base\BaseRepository.cs" />
@@ -235,7 +237,9 @@
     <Compile Include="Repository\StudentReportRepository.cs" />
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Services\ClassInfoService.cs" />
+    <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\Interface\IClassInfoService.cs" />
+    <Compile Include="Services\Interface\ICourseService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
     <Compile Include="Services\LifePictureService.cs" />
   </ItemGroup>
@@ -253,6 +257,7 @@
     <Content Include="Content\footer_back.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sausage-dog.css" />
+    <Content Include="Content\searchPage.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -367,6 +372,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\searchPage.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -480,6 +486,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Download\" />
     <Folder Include="Upload\LifePictures\" />
   </ItemGroup>
   <ItemGroup>
