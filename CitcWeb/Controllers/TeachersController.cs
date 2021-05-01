@@ -64,15 +64,13 @@ namespace CitcWeb.Controllers
             return View();
         }
 
-        // GET: Teachers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var teacher = db.Teacher.Find(id);
+            var teacher = _teacherService.GetById(id.Value);
             if (teacher == null)
             {
                 return HttpNotFound();
@@ -92,8 +90,7 @@ namespace CitcWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(teacher).State = EntityState.Modified;
-                db.SaveChanges();
+                _teacherService.Update(teacher);
                 return RedirectToAction("Index");
             }
 
@@ -101,42 +98,12 @@ namespace CitcWeb.Controllers
         }
 
         // GET: Teachers/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var teacher = db.Teacher.Find(id);
-            if (teacher == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(teacher);
+            _teacherService.TryDelete(id);
+            
+            return Redirect(Request.UrlReferrer?.ToString());
         }
-
-        // POST: Teachers/Delete/5
-        [HttpPost]
-        [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            var teacher = db.Teacher.Find(id);
-            db.Teacher.Remove(teacher);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
+        
     }
 }

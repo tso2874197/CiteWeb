@@ -1,6 +1,10 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
+using CitcWeb.Models;
+using CitcWeb.Models.Csv;
 using CitcWeb.Services.Interface;
 using PagedList;
 
@@ -16,8 +20,21 @@ namespace CitcWeb.Controllers
         }
 
         // GET: ClassInfoes
-        public ActionResult Index(int page=1)
+        public ActionResult Index(string className,int page=1)
         {
+            ViewBag.className = className;
+            IEnumerable<ClassInfo> classInfo;
+            if (string.IsNullOrEmpty(className))
+            {
+                classInfo = _classInfoService.Get();
+            }
+            else
+            {
+                classInfo = _classInfoService.Get(className);
+            }
+
+            return View(classInfo.ToPagedList(page, 3));
+
             var classInfos = _classInfoService.Get().ToPagedList(page,10);
             return View(classInfos);
         }
@@ -31,15 +48,17 @@ namespace CitcWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClassName,StartDate,EndDate")] ClassInfo classInfo)
+        public ActionResult Create([Bind(Include = "file")] HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (file != null && file.ContentLength > 0)
             {
+                var csvReader = new CsvReader<ClassCsvModel>();
+                var classInfo = csvReader.Read(file.InputStream, true);
                 _classInfoService.Add(classInfo);
                 return RedirectToAction("Index");
             }
 
-            return View(classInfo);
+            return View();
         }
 
         public ActionResult Edit(int? id)
@@ -67,6 +86,12 @@ namespace CitcWeb.Controllers
                 return RedirectToAction("Index");
             }
             return View(classInfo);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            _classInfoService.TryDelete(id);
+            return Redirect(Request.UrlReferrer?.ToString());
         }
 
     }

@@ -9,5 +9,8 @@ namespace CitcWeb.Services.Interface
         IEnumerable<Teacher> Get();
         void Add(IEnumerable<TeacherCsvModel> teacherCsvModels);
         IEnumerable<Teacher> Get(string teacherName);
+        Teacher GetById(int id);
+        void Update(Teacher teacher);
+        void TryDelete(int id);
     }
 }

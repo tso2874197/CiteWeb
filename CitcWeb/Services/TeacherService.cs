@@ -50,5 +50,27 @@ namespace CitcWeb.Services
         {
             return _teacherRepository.Get(x=>x.Name.Contains(teacherName)).OrderByDescending(x=>x.Sn);
         }
+
+        public Teacher GetById(int id)
+        {
+            return _teacherRepository.GetById(id);
+        }
+
+        public void Update(Teacher teacher)
+        {
+            _teacherRepository.Update(teacher);
+            _unitOfWork.Commit();
+        }
+
+        public void TryDelete(int id)
+        {
+            var teacher = _teacherRepository.GetById(id);
+            //if (teacher..Any())
+            //{
+            //    return;
+            //}
+            _teacherRepository.Remove(teacher);
+            _unitOfWork.Commit();
+        }
     }
 }

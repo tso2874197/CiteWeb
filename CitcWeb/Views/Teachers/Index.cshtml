@@ -19,6 +19,7 @@
 </div>
 <p>
     @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
+    <a href="~/CsvImoport/教官匯入範例.csv" class="btn btn-dark">匯入範例CSV檔</a>
 </p>
 
 @Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x,teacherName=ViewBag.teacherName}))

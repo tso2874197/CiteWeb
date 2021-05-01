@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassCsvModel.cs" />
     <Compile Include="Models\CourseCsvModel.cs" />
     <Compile Include="Models\Csv\CsvableBase.cs" />
     <Compile Include="Models\Csv\CsvReader.cs" />
@@ -351,6 +352,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="CsvImoport\教官匯入範例.csv" />
+    <Content Include="CsvImoport\課程匯入範例.csv" />
+    <Content Include="CsvImoport\班隊匯入範例.csv" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -470,18 +474,12 @@
     <Content Include="Views\LifePictures\Create.cshtml" />
     <Content Include="Views\LifePictures\Index.cshtml" />
     <Content Include="Views\ClassInfo\Create.cshtml" />
-    <Content Include="Views\ClassInfo\Delete.cshtml" />
-    <Content Include="Views\ClassInfo\Details.cshtml" />
     <Content Include="Views\ClassInfo\Edit.cshtml" />
     <Content Include="Views\ClassInfo\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Delete.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
