@@ -241,7 +241,9 @@
     <Compile Include="Services\Interface\IClassInfoService.cs" />
     <Compile Include="Services\Interface\ICourseService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
+    <Compile Include="Services\Interface\ITeacherService.cs" />
     <Compile Include="Services\LifePictureService.cs" />
+    <Compile Include="Services\TeacherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -258,6 +260,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sausage-dog.css" />
     <Content Include="Content\searchPage.css" />
+    <Content Include="Content\table.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

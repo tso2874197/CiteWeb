@@ -1,14 +1,27 @@
-﻿@model IEnumerable<CitcWeb.Domain.Teacher>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.Teacher>
 
 @{
     ViewBag.Title = "教官資訊";
 }
 
-<h2>教官資訊</h2>
+<h2 id="pageTitle">教官資訊 <i id="titleIcon" class="fa fa-toggle-down"></i></h2>
 
+<div id="searchDiv" class="jumbotron">
+    @using (Html.BeginForm("Index", "Teachers", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <span>教官姓名：</span> @Html.TextBox("teacherName", null, new { @class = "form-control" })
+            <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
+        </div>
+    }
+</div>
 <p>
-    @Html.ActionLink("新增", "Create",null, new { @class = "btn btn-success" })
+    @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
 </p>
+
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x,teacherName=ViewBag.teacherName}))
 <table class="table">
     <tr>
         <th>
@@ -41,41 +54,49 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.County)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MilNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PayBureauNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PayAccount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsValid)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.County)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MilNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayBureauNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
+                @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section styles{
+    <link href="~/Content/searchPage.css" rel="stylesheet" />
+    <link href="~/Content/table.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/searchPage.js"></script>
+}

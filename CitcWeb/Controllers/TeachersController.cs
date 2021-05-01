@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -6,34 +7,37 @@ using System.Web.Mvc;
 using CitcWeb.Domain;
 using CitcWeb.Models;
 using CitcWeb.Models.Csv;
+using CitcWeb.Services;
+using CitcWeb.Services.Interface;
+using PagedList;
 
 namespace CitcWeb.Controllers
 {
     public class TeachersController : Controller
     {
         private readonly CitcEntities db = new CitcEntities();
+        private readonly ITeacherService _teacherService;
 
-        // GET: Teachers
-        public ActionResult Index()
+        public TeachersController(ITeacherService teacherService)
         {
-            return View(db.Teacher.ToList());
+            _teacherService = teacherService;
         }
 
-        // GET: Teachers/Details/5
-        public ActionResult Details(int? id)
+        // GET: Teachers
+        public ActionResult Index(string teacherName,int page=1)
         {
-            if (id == null)
+            ViewBag.teacherName = teacherName;
+            IEnumerable<Teacher> teachers;
+            if (string.IsNullOrEmpty(teacherName))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                teachers = _teacherService.Get();
+            }
+            else
+            {
+                teachers = _teacherService.Get(teacherName);
             }
 
-            var teacher = db.Teacher.Find(id);
-            if (teacher == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(teacher);
+            return View(teachers.ToPagedList(page, 3));
         }
 
         // GET: Teachers/Create
@@ -53,9 +57,10 @@ namespace CitcWeb.Controllers
             {
                 var csvReader = new CsvReader<TeacherCsvModel>();
                 var teacherCsvModels = csvReader.Read(file.InputStream, true);
+                _teacherService.Add(teacherCsvModels);
+                
                 return RedirectToAction("Index");
             }
-
             return View();
         }
 

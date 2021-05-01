@@ -37,7 +37,7 @@ namespace CitcWeb.Controllers
                 courses = _courseService.Get(courseName);
             }
 
-            return View(courses.ToPagedList(page, 10));
+            return View(courses.ToPagedList(page, 3));
         }
 
         public ActionResult Create()
