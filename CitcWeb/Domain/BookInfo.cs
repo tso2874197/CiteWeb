@@ -23,6 +23,7 @@ namespace CitcWeb.Domain
         public int Sn { get; set; }
         public string BookName { get; set; }
         public string BookNumber { get; set; }
+        public bool IsBorrowed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BorrowHistory> BorrowHistory { get; set; }

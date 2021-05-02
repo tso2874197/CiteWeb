@@ -21,6 +21,7 @@
           <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="BookNumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsBorrowed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowHistory">
           <Key>
@@ -349,6 +350,7 @@
           <Property Name="BookName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="BookNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BorrowHistory" Relationship="CitcModel.FK_BorrowHistory_BookInfo" FromRole="BookInfo" ToRole="BorrowHistory" />
+          <Property Name="IsBorrowed" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowHistory">
           <Key>
@@ -477,6 +479,7 @@
           <EntitySetMapping Name="BookInfo">
             <EntityTypeMapping TypeName="CitcModel.BookInfo">
               <MappingFragment StoreEntitySet="BookInfo">
+                <ScalarProperty Name="IsBorrowed" ColumnName="IsBorrowed" />
                 <ScalarProperty Name="BookNumber" ColumnName="BookNumber" />
                 <ScalarProperty Name="BookName" ColumnName="BookName" />
                 <ScalarProperty Name="Sn" ColumnName="Sn" />
