@@ -30,17 +30,17 @@ namespace CitcWeb.Controllers
         {
             ViewBag.bookName = bookName;
             ViewBag.bookNumber = bookNumber;
-            IEnumerable<BookInfo> teachers;
-            if (string.IsNullOrEmpty(bookName)&&string.IsNullOrEmpty(bookNumber))
+            IEnumerable<BookInfo> books;
+            if (string.IsNullOrWhiteSpace(bookName)&&string.IsNullOrWhiteSpace(bookNumber))
             {
-                teachers = _bookService.Get();
+                books = _bookService.Get();
             }
             else
             {
-                teachers = _bookService.Get(bookName,bookNumber);
+                books = _bookService.Get(bookName,bookNumber);
             }
 
-            return View(teachers.ToPagedList(page, 3));
+            return View(books.ToPagedList(page, 3));
         }
 
         // GET: BookInfo/Create

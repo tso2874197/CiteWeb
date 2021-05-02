@@ -29,15 +29,15 @@ namespace CitcWeb.Services
             var books = new List<BookInfo>();
             foreach (var csvModel in bookCsvModels)
             {
-               books.Add(new BookInfo()
-               {
-                   BookName = csvModel.BookName,
-                   BookNumber = csvModel.BookNumber
-               }); 
+                books.Add(new BookInfo()
+                {
+                    BookName = csvModel.BookName,
+                    BookNumber = csvModel.BookNumber
+                });
             }
+
             _bookRepository.AddRange(books);
             _unitOfWork.Commit();
-
         }
 
         public BookInfo GetById(int id)
@@ -58,14 +58,26 @@ namespace CitcWeb.Services
             {
                 return;
             }
+
             _bookRepository.Remove(bookInfo);
             _unitOfWork.Commit();
         }
 
         public IEnumerable<BookInfo> Get(string bookName, string bookNumber)
         {
-            return _bookRepository.Get(x => x.BookName.Contains(bookName) || x.BookNumber.Contains(bookNumber))
-                .OrderByDescending(x => x.Sn);
+            var bookInfos = _bookRepository.Get();
+            if (!string.IsNullOrWhiteSpace(bookName))
+            {
+                bookInfos = bookInfos.Where(x => x.BookName.Contains(bookName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(bookNumber))
+            {
+                bookInfos = bookInfos.Where(x => x.BookNumber.Contains(bookNumber));
+            }
+
+            bookInfos = bookInfos.OrderByDescending(x => x.Sn);
+            return bookInfos;
         }
     }
 }

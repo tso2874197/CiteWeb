@@ -27,7 +27,7 @@ namespace CitcWeb.Controllers
         {
             ViewBag.teacherName = teacherName;
             IEnumerable<Teacher> teachers;
-            if (string.IsNullOrEmpty(teacherName))
+            if (string.IsNullOrWhiteSpace(teacherName))
             {
                 teachers = _teacherService.Get();
             }

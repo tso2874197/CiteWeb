@@ -28,7 +28,7 @@ namespace CitcWeb.Controllers
         {
             ViewBag.courseName = courseName;
             IEnumerable<Course> courses;
-            if (string.IsNullOrEmpty(courseName))
+            if (string.IsNullOrWhiteSpace(courseName))
             {
                 courses = _courseService.Get();
             }

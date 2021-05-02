@@ -24,7 +24,7 @@ namespace CitcWeb.Controllers
         {
             ViewBag.className = className;
             IEnumerable<ClassInfo> classInfo;
-            if (string.IsNullOrEmpty(className))
+            if (string.IsNullOrWhiteSpace(className))
             {
                 classInfo = _classInfoService.Get();
             }

@@ -9,11 +9,11 @@
 <h3 id="pageTitle">圖書管理 <i id="titleIcon" class="fa fa-toggle-down"></i></h3>
 
 <div id="searchDiv" class="jumbotron">
-    @using (Html.BeginForm("Index", "ClassInfo", FormMethod.Post))
+    @using (Html.BeginForm("Index", "BookInfo", FormMethod.Post))
     {
         <div class="form-inline">
-            <span>書名：</span> @Html.TextBox("className", null, new { @class = "form-control" })
-            <span>圖書編號：</span> @Html.TextBox("className", null, new { @class = "form-control" })
+            <span>書名：</span> @Html.TextBox("bookName", null, new { @class = "form-control" })
+            <span>圖書編號：</span> @Html.TextBox("bookNumber", null, new { @class = "form-control" })
             <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
         </div>
     }
@@ -22,7 +22,7 @@
     @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
     <a href="~/CsvImoport/圖書匯入範例.csv" class="btn btn-dark">匯入範例CSV檔</a>
 </p>
-@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, BookName = ViewBag.BookName,BookNumber = ViewBag.BookNumber }))
+@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, bookName = ViewBag.bookName,bookNumber = ViewBag.bookNumber }))
 <table class="table">
     <tr>
         <th>
