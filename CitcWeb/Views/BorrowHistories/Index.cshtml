@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CitcWeb.Domain.BorrowHistory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BorrowTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookInfo.BookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassInfo.ClassName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BorrowTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookInfo.BookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
+        </td>
+    </tr>
+}
+
+</table>

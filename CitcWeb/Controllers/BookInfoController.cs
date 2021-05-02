@@ -17,7 +17,6 @@ namespace CitcWeb.Controllers
 {
     public class BookInfoController : Controller
     {
-        private CitcEntities db = new CitcEntities();
         private readonly IBookService _bookService;
 
         public BookInfoController(IBookService bookService)
