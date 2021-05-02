@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -13,96 +15,92 @@ using PagedList;
 
 namespace CitcWeb.Controllers
 {
-    public class TeachersController : Controller
+    public class BookInfoController : Controller
     {
-        private readonly ITeacherService _teacherService;
+        private CitcEntities db = new CitcEntities();
+        private readonly IBookService _bookService;
 
-        public TeachersController(ITeacherService teacherService)
+        public BookInfoController(IBookService bookService)
         {
-            _teacherService = teacherService;
+            _bookService = bookService;
         }
 
-        // GET: Teachers
-        public ActionResult Index(string teacherName,int page=1)
+        // GET: BookInfo
+        public ActionResult Index(string bookName,string bookNumber,int page=1)
         {
-            ViewBag.teacherName = teacherName;
-            IEnumerable<Teacher> teachers;
-            if (string.IsNullOrEmpty(teacherName))
+            ViewBag.bookName = bookName;
+            ViewBag.bookNumber = bookNumber;
+            IEnumerable<BookInfo> teachers;
+            if (string.IsNullOrEmpty(bookName)&&string.IsNullOrEmpty(bookNumber))
             {
-                teachers = _teacherService.Get();
+                teachers = _bookService.Get();
             }
             else
             {
-                teachers = _teacherService.Get(teacherName);
+                teachers = _bookService.Get(bookName,bookNumber);
             }
 
             return View(teachers.ToPagedList(page, 3));
         }
 
-        // GET: Teachers/Create
+        // GET: BookInfo/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Teachers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "file")] HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                var csvReader = new CsvReader<TeacherCsvModel>();
-                var teacherCsvModels = csvReader.Read(file.InputStream, true);
-                _teacherService.Add(teacherCsvModels);
+                var csvReader = new CsvReader<BookCsvModel>();
+                var bookCsvModels = csvReader.Read(file.InputStream, true);
+                _bookService.Add(bookCsvModels);
                 
                 return RedirectToAction("Index");
             }
             return View();
         }
 
+        // GET: BookInfo/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var teacher = _teacherService.GetById(id.Value);
-            if (teacher == null)
+
+            var bookInfo = _bookService.GetById(id.Value);
+            if (bookInfo == null)
             {
                 return HttpNotFound();
             }
-
-            return View(teacher);
+            return View(bookInfo);
         }
 
-        // POST: Teachers/Edit/5
+        // POST: BookInfo/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            [Bind(Include = "Sn,IdNum,Name,County,PhoneNum,MilNum,Email,PayBureauNum,PayAccount,IsValid")]
-            Teacher teacher)
+        public ActionResult Edit([Bind(Include = "Sn,BookName,BookNumber")] BookInfo bookInfo)
         {
             if (ModelState.IsValid)
             {
-                _teacherService.Update(teacher);
+                _bookService.Update(bookInfo);
                 return RedirectToAction("Index");
             }
-
-            return View(teacher);
+            return View(bookInfo);
         }
 
-        // GET: Teachers/Delete/5
+        // GET: BookInfo/Delete/5
         public ActionResult Delete(int id)
         {
-            _teacherService.TryDelete(id);
-            
+            _bookService.TryDelete(id);
             return Redirect(Request.UrlReferrer?.ToString());
         }
-        
+
     }
 }

@@ -31,6 +31,7 @@ namespace CitcWeb.App_Start
             builder.RegisterType<ClassInfoService>().As<IClassInfoService>().InstancePerRequest();
             builder.RegisterType<CourseService>().As<ICourseService>().InstancePerRequest();
             builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerRequest();
+            builder.RegisterType<BookService>().As<IBookService>().InstancePerRequest();
 
 
         }
@@ -44,6 +45,8 @@ namespace CitcWeb.App_Start
             builder.RegisterType<PayRankRepository>().As<IPayRankRepository>().InstancePerRequest();
             builder.RegisterType<CourseRepository>().As<ICourseRepository>().InstancePerRequest();
             builder.RegisterType<AnnualCourseRepository>().As<IAnnualCourseRepository>().InstancePerRequest();
+            builder.RegisterType<BookInfoRepository>().As<IBookInfoRepository>().InstancePerRequest();
+            builder.RegisterType<BorrowHistoryRepository>().As<IBorrowHistoryRepository>().InstancePerRequest();
         }
 
         private static void RegisterGeneralComponent(ContainerBuilder builder)

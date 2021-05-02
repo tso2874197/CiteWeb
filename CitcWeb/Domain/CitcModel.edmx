@@ -19,7 +19,7 @@
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BookName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="BookNumber" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowHistory">
@@ -346,7 +346,7 @@
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="BookName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="BookNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BorrowHistory" Relationship="CitcModel.FK_BorrowHistory_BookInfo" FromRole="BookInfo" ToRole="BorrowHistory" />
         </EntityType>

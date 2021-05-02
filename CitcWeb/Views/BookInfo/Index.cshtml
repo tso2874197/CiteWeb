@@ -1,0 +1,61 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.BookInfo>
+
+@{
+    ViewBag.Title = "圖書管理";
+}
+
+<h3 id="pageTitle">圖書管理 <i id="titleIcon" class="fa fa-toggle-down"></i></h3>
+
+<div id="searchDiv" class="jumbotron">
+    @using (Html.BeginForm("Index", "ClassInfo", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <span>書名：</span> @Html.TextBox("className", null, new { @class = "form-control" })
+            <span>圖書編號：</span> @Html.TextBox("className", null, new { @class = "form-control" })
+            <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
+    <a href="~/CsvImoport/圖書匯入範例.csv" class="btn btn-dark">匯入範例CSV檔</a>
+</p>
+@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, BookName = ViewBag.BookName,BookNumber = ViewBag.BookNumber }))
+<table class="table">
+    <tr>
+        <th>
+            書名
+        </th>
+        <th>
+            圖書編號
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookNumber)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
+                @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section styles{
+    <link href="~/Content/searchPage.css" rel="stylesheet" />
+    <link href="~/Content/table.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/searchPage.js"></script>
+}

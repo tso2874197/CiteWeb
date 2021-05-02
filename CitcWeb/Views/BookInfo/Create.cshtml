@@ -1,13 +1,13 @@
-﻿@model CitcWeb.Domain.Teacher
+﻿@model CitcWeb.Domain.BookInfo
 
 @{
-    ViewBag.Title = "新增教官";
+    ViewBag.Title = "新增圖書";
 }
 
-<h2>新增教官</h2>
+<h2>新增圖書</h2>
 
 
-@using (Html.BeginForm("Create", "Teachers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "BookInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
