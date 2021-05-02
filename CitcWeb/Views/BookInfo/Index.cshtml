@@ -19,7 +19,7 @@
     }
 </div>
 <p>
-    @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("新增書籍", "Create", null, new { @class = "btn btn-success" })
     <a href="~/CsvImoport/圖書匯入範例.csv" class="btn btn-dark">匯入範例CSV檔</a>
 </p>
 @Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, bookName = ViewBag.bookName,bookNumber = ViewBag.bookNumber }))
@@ -54,7 +54,7 @@
                 }
                 @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
                 @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
-                @Html.ActionLink("紀錄", "Index" ,"BorrowHistory", new { id = item.Sn }, new { @class = "btn btn-dark" })
+                @Html.ActionLink("紀錄", "Index" ,"BorrowHistories", new { id = item.Sn }, new { @class = "btn btn-dark" })
             </td>
         </tr>
     }
