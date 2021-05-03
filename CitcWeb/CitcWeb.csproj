@@ -251,8 +251,10 @@
     <Compile Include="Services\Interface\IClassInfoService.cs" />
     <Compile Include="Services\Interface\ICourseService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
+    <Compile Include="Services\Interface\ISelectListService.cs" />
     <Compile Include="Services\Interface\ITeacherService.cs" />
     <Compile Include="Services\LifePictureService.cs" />
+    <Compile Include="Services\SelectListService.cs" />
     <Compile Include="Services\TeacherService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -32,8 +32,7 @@ namespace CitcWeb.App_Start
             builder.RegisterType<CourseService>().As<ICourseService>().InstancePerRequest();
             builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerRequest();
             builder.RegisterType<BookService>().As<IBookService>().InstancePerRequest();
-
-
+            builder.RegisterType<SelectListService>().As<ISelectListService>().InstancePerRequest();
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)

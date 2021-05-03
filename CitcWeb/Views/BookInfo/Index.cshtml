@@ -46,15 +46,15 @@
             <td>
                 @if (item.IsBorrowed)
                 {
-                    @Html.ActionLink("歸還", "ReturnBook","BorrowHistories", new { id = item.Sn }, new { @class = "btn btn-success" , onclick = "return confirm('確定要刪除嗎?');" })
+                    @Html.ActionLink("歸還", "ReturnBook","BorrowHistories", new { bookInfoSn = item.Sn }, new { @class = "btn btn-warning" , onclick = "return confirm('確定要歸還嗎?');" })
                 }
                 else
                 {
-                    @Html.ActionLink("借閱", "Create","BorrowHistories", new { id = item.Sn }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("借閱", "Create","BorrowHistories", new { bookInfoSn = item.Sn }, new { @class = "btn btn-secondary" })
                 }
                 @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
                 @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
-                @Html.ActionLink("紀錄", "Index" ,"BorrowHistories", new { id = item.Sn }, new { @class = "btn btn-dark" })
+                @Html.ActionLink("紀錄", "Index" ,"BorrowHistories", new { bookInfoSn = item.Sn }, new { @class = "btn btn-dark" })
             </td>
         </tr>
     }

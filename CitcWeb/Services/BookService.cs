@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CitcWeb.Domain;
 using CitcWeb.Models;
@@ -12,11 +13,13 @@ namespace CitcWeb.Services
     {
         private readonly IBookInfoRepository _bookRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBorrowHistoryRepository _borrowHistoryRepository;
 
-        public BookService(IBookInfoRepository bookRepository, IUnitOfWork unitOfWork)
+        public BookService(IBookInfoRepository bookRepository, IUnitOfWork unitOfWork, IBorrowHistoryRepository borrowHistoryRepository)
         {
             _bookRepository = bookRepository;
             _unitOfWork = unitOfWork;
+            _borrowHistoryRepository = borrowHistoryRepository;
         }
 
         public IEnumerable<BookInfo> Get()
@@ -78,6 +81,32 @@ namespace CitcWeb.Services
 
             bookInfos = bookInfos.OrderByDescending(x => x.Sn);
             return bookInfos;
+        }
+
+        public void Borrow(BorrowHistory borrowHistory)
+        {
+            var bookInfo = _bookRepository.GetById(borrowHistory.BookInfoSn);
+            bookInfo.IsBorrowed = true;
+            borrowHistory.BorrowTime=DateTime.Now;
+            _borrowHistoryRepository.Add(borrowHistory);
+            _unitOfWork.Commit();
+        }
+
+        public IEnumerable<BorrowHistory> GetHistoryById(int bookInfoSn)
+        {
+            return _borrowHistoryRepository.Get(x => x.BookInfoSn == bookInfoSn).OrderByDescending(x => x.Sn);
+        }
+
+        public void ReturnBook(int bookInfoSn)
+        {
+            var bookInfo = _bookRepository.GetById(bookInfoSn);
+            bookInfo.IsBorrowed = false;
+            var borrowHistories = _borrowHistoryRepository.Get(x=>x.BookInfoSn==bookInfoSn && x.ReturnTime.HasValue ==false);
+            foreach (var borrowHistory in borrowHistories)
+            {
+                borrowHistory.ReturnTime = DateTime.Now;
+            }
+            _unitOfWork.Commit();
         }
     }
 }

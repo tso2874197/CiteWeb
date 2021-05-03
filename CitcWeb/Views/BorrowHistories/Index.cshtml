@@ -1,11 +1,21 @@
-﻿@model IEnumerable<CitcWeb.Domain.BorrowHistory>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.BorrowHistory>
 
 @{
     ViewBag.Title = "借閱紀錄";
 }
 
 <h2>借閱紀錄</h2>
-
+<br />
+    <h4>
+    @if (Model.Any()) { 
+        @Model.FirstOrDefault().BookInfo.BookName
+    }
+        本書無借閱紀錄   
+    </h4>
+<br />
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x,bookInfoSn=ViewBag.bookInfoSn}))
 <table class="table">
     <tr>
         <th>
@@ -17,13 +27,12 @@
         <th>
             歸還時間
         </th>
-        <th>
+        @*<th>
             書名
-        </th>
+        </th>*@
         <th>
             班隊名稱
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -37,16 +46,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.ReturnTime)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.BookInfo.BookName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Sn }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Sn }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Sn })
         </td>
     </tr>
 }

@@ -22,7 +22,7 @@
     <a href="~/CsvImoport/教官匯入範例.csv" class="btn btn-dark">匯入範例CSV檔</a>
 </p>
 
-@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x,teacherName=ViewBag.teacherName}))
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { teacherName=ViewBag.teacherName,page=x}))
 <table class="table">
     <tr>
         <th>

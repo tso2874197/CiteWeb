@@ -7,26 +7,41 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
+using CitcWeb.Services;
+using CitcWeb.Services.Interface;
+using PagedList;
 
 namespace CitcWeb.Controllers
 {
     public class BorrowHistoriesController : Controller
     {
-        private CitcEntities db = new CitcEntities();
+        private readonly ISelectListService _selectListService;
+        private readonly IBookService _bookService;
+
+        public BorrowHistoriesController(ISelectListService selectListService, IBookService bookService)
+        {
+            _selectListService = selectListService;
+            _bookService = bookService;
+        }
 
         // GET: BorrowHistories
-        public ActionResult Index()
+        public ActionResult Index(int bookInfoSn, int page=1)
         {
-            var borrowHistory = db.BorrowHistory.Include(b => b.BookInfo).Include(b => b.ClassInfo);
-            return View(borrowHistory.ToList());
+            ViewBag.bookInfoSn = bookInfoSn;
+            return View(_bookService.GetHistoryById(bookInfoSn).ToPagedList(page,3));
         }
 
         // GET: BorrowHistories/Create
-        public ActionResult Create()
+        public ActionResult Create(int bookInfoSn)
         {
-            ViewBag.BookInfoSn = new SelectList(db.BookInfo, "Sn", "BookName");
-            ViewBag.ClassInfoSn = new SelectList(db.ClassInfo, "Sn", "ClassName");
-            return View();
+            GetSelectList();
+            return View(new BorrowHistory{BookInfoSn = bookInfoSn});
+        }
+
+        private void GetSelectList()
+        {
+            ViewBag.BookInfoSn = _selectListService.GetBookInfo();
+            ViewBag.ClassInfoSn = _selectListService.GetClassInfo();
         }
 
         // POST: BorrowHistories/Create
@@ -38,14 +53,17 @@ namespace CitcWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.BorrowHistory.Add(borrowHistory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _bookService.Borrow(borrowHistory);
+                return RedirectToAction("Index","BookInfo");
             }
-
-            ViewBag.BookInfoSn = new SelectList(db.BookInfo, "Sn", "BookName", borrowHistory.BookInfoSn);
-            ViewBag.ClassInfoSn = new SelectList(db.ClassInfo, "Sn", "ClassName", borrowHistory.ClassInfoSn);
+            GetSelectList();
             return View(borrowHistory);
+        }
+
+        public ActionResult ReturnBook(int bookInfoSn)
+        {
+            _bookService.ReturnBook(bookInfoSn);
+            return Redirect(Request.UrlReferrer?.ToString());
         }
 
 

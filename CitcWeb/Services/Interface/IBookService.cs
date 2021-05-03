@@ -13,5 +13,8 @@ namespace CitcWeb.Services.Interface
         void Update(BookInfo bookInfo);
         void TryDelete(int id);
         IEnumerable<BookInfo> Get(string bookName, string bookNumber);
+        void Borrow(BorrowHistory borrowHistory);
+        IEnumerable<BorrowHistory> GetHistoryById(int bookInfoSn);
+        void ReturnBook(int bookInfoSn);
     }
 }
