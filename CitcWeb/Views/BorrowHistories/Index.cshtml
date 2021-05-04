@@ -8,14 +8,18 @@
 
 <h2>借閱紀錄</h2>
 <br />
-    <h4>
-    @if (Model.Any()) { 
+<h4>
+    @if (Model.Any())
+    {
         @Model.FirstOrDefault().BookInfo.BookName
     }
-        本書無借閱紀錄   
-    </h4>
+    else
+    {
+        <span>本書無借閱紀錄</span>
+    }
+</h4>
 <br />
-@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { page=x,bookInfoSn=ViewBag.bookInfoSn}))
+@Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, bookInfoSn = ViewBag.bookInfoSn }))
 <table class="table">
     <tr>
         <th>
@@ -28,31 +32,32 @@
             歸還時間
         </th>
         @*<th>
-            書名
-        </th>*@
+                書名
+            </th>*@
         <th>
             班隊名稱
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BorrowTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReturnTime)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.BookInfo.BookName)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnTime)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.BookInfo.BookName)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
+            </td>
+        </tr>
+    }
 
 </table>

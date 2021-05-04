@@ -13,5 +13,10 @@ namespace CitcWeb.Services.Interface
         void Update(Course course);
         void TryDelete(int id);
         IEnumerable<Course> Get(string courseName);
+        IEnumerable<AnnualCourse> GetAnnualCourse(int classSn, string courseName);
+        void AddAnnualCourse(AnnualCourse annualCourse);
+        void UpdateAnnualCourse(AnnualCourse annualCourse);
+        AnnualCourse GetAnnualCourseById(int id);
+        void TryDeleteAnnualCourse(int id);
     }
 }

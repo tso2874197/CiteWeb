@@ -162,6 +162,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AnnualCoursesController.cs" />
     <Compile Include="Controllers\BookInfoController.cs" />
     <Compile Include="Controllers\BorrowHistoriesController.cs" />
     <Compile Include="Controllers\ClassInfoController.cs" />
@@ -457,6 +458,7 @@
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\select2select.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -566,6 +568,9 @@
     <Content Include="Views\BookInfo\Index.cshtml" />
     <Content Include="Views\BorrowHistories\Create.cshtml" />
     <Content Include="Views\BorrowHistories\Index.cshtml" />
+    <Content Include="Views\AnnualCourses\Create.cshtml" />
+    <Content Include="Views\AnnualCourses\Edit.cshtml" />
+    <Content Include="Views\AnnualCourses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,71 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.AnnualCourse>
+
+@{
+    ViewBag.Title = "年度課程";
+}
+
+<h2 id="pageTitle">年度課程 <i id="titleIcon" class="fa fa-toggle-down"></i></h2>
+
+<div id="searchDiv" class="jumbotron">
+    @using (Html.BeginForm("Index", "AnnualCourses", FormMethod.Post))
+    {
+        <div class="form-inline">
+            @Html.Hidden("classSn")
+            <span>課程名稱：</span> @Html.TextBox("CourseName", null, new { @class = "form-control" })
+            <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
+        </div>
+    }
+</div>
+<br />
+    <h4>
+    @if (Model.Any()) { 
+        @Model.FirstOrDefault().ClassInfo.ClassName
+    }
+    </h4>
+<br />
+<p>
+    @Html.ActionLink("新增", "Create", new { classSn = ViewBag.classSn}, new { @class = "btn btn-success" })
+</p>
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { classSn=ViewBag.classSn,courseName=ViewBag.courseName,page=x}))
+<table class="table">
+    <tr>
+        <th>
+            課程名稱
+        </th>
+        @*<th>
+            班隊名稱
+        </th>*@
+        <th>
+            總時數
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Name)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalHour)
+        </td>
+        <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
+                @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
+        </td>
+    </tr>
+}
+
+</table>
+@section styles{
+    <link href="~/Content/searchPage.css" rel="stylesheet" />
+    <link href="~/Content/table.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/searchPage.js"></script>
+}

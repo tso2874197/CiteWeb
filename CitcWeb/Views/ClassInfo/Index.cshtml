@@ -48,8 +48,8 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td style="max-width:unset">
-            @Html.ActionLink("課程維護", "Index","AnnualCourse", new { id = item.Sn }, new { @class = "btn btn-secondary" } )
-            @Html.ActionLink("複製", "Copy", new { id = item.Sn }, new { @class = "btn btn-primary" } )
+            @Html.ActionLink("課程維護", "Index","AnnualCourses", new { classSn = item.Sn }, new { @class = "btn btn-secondary" } )
+            @Html.ActionLink("複製", "Copy", new { id = item.Sn }, new { @class = "btn btn-light btn-outline-dark" } )
             @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" } )
             @Html.ActionLink("刪除", "Delete", new { id=item.Sn },new { @class="btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
         </td>
