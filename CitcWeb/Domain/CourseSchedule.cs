@@ -12,17 +12,20 @@ namespace CitcWeb.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentReport
+    public partial class CourseSchedule
     {
         public int Sn { get; set; }
-        public string StudentName { get; set; }
-        public string StudentNo { get; set; }
-        public string ReportTitle { get; set; }
-        public System.DateTime UpdateTime { get; set; }
-        public string PdfPath { get; set; }
-        public string PptPath { get; set; }
+        public System.DateTime Date { get; set; }
+        public int LessonStart { get; set; }
+        public int LessonEnd { get; set; }
+        public string Location { get; set; }
         public int ClassSn { get; set; }
+        public Nullable<int> CourseSn { get; set; }
+        public Nullable<int> TeacherSn { get; set; }
+        public string OtherEvent { get; set; }
     
         public virtual ClassInfo ClassInfo { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual Teacher Teacher { get; set; }
     }
 }

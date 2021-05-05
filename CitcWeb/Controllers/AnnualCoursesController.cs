@@ -14,7 +14,6 @@ namespace CitcWeb.Controllers
 {
     public class AnnualCoursesController : Controller
     {
-        private CitcEntities db = new CitcEntities();
         private readonly ICourseService _courseService;
         private readonly ISelectListService _selectListService;
 
@@ -29,7 +28,7 @@ namespace CitcWeb.Controllers
         {
             ViewBag.classSn = classSn;
             ViewBag.courseName = courseName;
-            return View(_courseService.GetAnnualCourse(classSn,courseName).ToPagedList(page,2));
+            return View(_courseService.GetAnnualCourse(classSn,courseName).ToPagedList(page,3));
         }
 
         // GET: AnnualCourses/Create

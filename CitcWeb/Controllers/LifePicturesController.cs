@@ -73,14 +73,19 @@ namespace CitcWeb.Controllers
         public ActionResult Delete(int id)
         {
             var lifePicture = _lifePictureService.GetById(id);
-            var path = Server.MapPath($"~/Upload/LifePictures/{lifePicture.PicturePath}");
+            DeleteFile(lifePicture.PicturePath);
+
+            _lifePictureService.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        private void DeleteFile(string picturePath)
+        {
+            var path = Server.MapPath($"~/Upload/LifePictures/{picturePath}");
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
             }
-
-            _lifePictureService.Remove(id);
-            return RedirectToAction("Index");
         }
     }
 }

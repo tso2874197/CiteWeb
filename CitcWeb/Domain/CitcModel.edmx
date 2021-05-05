@@ -51,6 +51,20 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsExist" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="CourseSchedule">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="LessonStart" Type="int" Nullable="false" />
+          <Property Name="LessonEnd" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassSn" Type="int" Nullable="false" />
+          <Property Name="CourseSn" Type="int" />
+          <Property Name="TeacherSn" Type="int" />
+          <Property Name="OtherEvent" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="LifePicture">
           <Key>
             <PropertyRef Name="Sn" />
@@ -75,14 +89,13 @@
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="16" Nullable="false" />
           <Property Name="StudentNo" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="ReportTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReportTitle" Type="nvarchar" MaxLength="80" Nullable="false" />
           <Property Name="UpdateTime" Type="datetime" Nullable="false" />
-          <Property Name="ClassId" Type="int" Nullable="false" />
-          <Property Name="PdfPath" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PptPath" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassSn" Type="int" Nullable="false" />
+          <Property Name="PdfPath" Type="nvarchar" MaxLength="200" />
+          <Property Name="PptPath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -147,6 +160,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CourseSchedule_ClassInfo">
+          <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseSchedule_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="CourseSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseSchedule_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="CourseSchedule" Type="Self.CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="TeacherSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentReport_ClassInfo">
           <End Role="ClassInfo" Type="Self.ClassInfo" Multiplicity="1" />
           <End Role="StudentReport" Type="Self.StudentReport" Multiplicity="*" />
@@ -165,6 +214,7 @@
           <EntitySet Name="BorrowHistory" EntityType="Self.BorrowHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassInfo" EntityType="Self.ClassInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseSchedule" EntityType="Self.CourseSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LifePicture" EntityType="Self.LifePicture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PayRank" EntityType="Self.PayRank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentReport" EntityType="Self.StudentReport" Schema="dbo" store:Type="Tables" />
@@ -184,6 +234,18 @@
           <AssociationSet Name="FK_BorrowHistory_ClassInfo" Association="Self.FK_BorrowHistory_ClassInfo">
             <End Role="ClassInfo" EntitySet="ClassInfo" />
             <End Role="BorrowHistory" EntitySet="BorrowHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseSchedule_ClassInfo" Association="Self.FK_CourseSchedule_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseSchedule_Course" Association="Self.FK_CourseSchedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseSchedule_Teacher" Association="Self.FK_CourseSchedule_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
           </AssociationSet>
           <AssociationSet Name="FK_StudentReport_ClassInfo" Association="Self.FK_StudentReport_ClassInfo">
             <End Role="ClassInfo" EntitySet="ClassInfo" />
@@ -224,6 +286,19 @@
             <End Role="ClassInfo" EntitySet="ClassInfo" />
             <End Role="BorrowHistory" EntitySet="BorrowHistory" />
           </AssociationSet>
+          <EntitySet Name="CourseSchedule" EntityType="CitcModel.CourseSchedule" />
+          <AssociationSet Name="FK_CourseSchedule_ClassInfo" Association="CitcModel.FK_CourseSchedule_ClassInfo">
+            <End Role="ClassInfo" EntitySet="ClassInfo" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseSchedule_Course" Association="CitcModel.FK_CourseSchedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseSchedule_Teacher" Association="CitcModel.FK_CourseSchedule_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="CourseSchedule" EntitySet="CourseSchedule" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AnnualCourse">
           <Key>
@@ -247,6 +322,7 @@
           <NavigationProperty Name="AnnualCourse" Relationship="CitcModel.FK_AnnualCourse_ClassInfo" FromRole="ClassInfo" ToRole="AnnualCourse" />
           <NavigationProperty Name="StudentReport" Relationship="CitcModel.FK_StudentReport_ClassInfo" FromRole="ClassInfo" ToRole="StudentReport" />
           <NavigationProperty Name="BorrowHistory" Relationship="CitcModel.FK_BorrowHistory_ClassInfo" FromRole="ClassInfo" ToRole="BorrowHistory" />
+          <NavigationProperty Name="CourseSchedule" Relationship="CitcModel.FK_CourseSchedule_ClassInfo" FromRole="ClassInfo" ToRole="CourseSchedule" />
         </EntityType>
         <EntityType Name="Course">
           <Key>
@@ -256,6 +332,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsExist" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AnnualCourse" Relationship="CitcModel.FK_AnnualCourse_Course" FromRole="Course" ToRole="AnnualCourse" />
+          <NavigationProperty Name="CourseSchedule" Relationship="CitcModel.FK_CourseSchedule_Course" FromRole="Course" ToRole="CourseSchedule" />
         </EntityType>
         <EntityType Name="LifePicture">
           <Key>
@@ -281,13 +358,12 @@
             <PropertyRef Name="Sn" />
           </Key>
           <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="StudentNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ReportTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportTitle" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ClassId" Type="Int32" Nullable="false" />
-          <Property Name="PdfPath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PptPath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PdfPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PptPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ClassSn" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ClassInfo" Relationship="CitcModel.FK_StudentReport_ClassInfo" FromRole="StudentReport" ToRole="ClassInfo" />
         </EntityType>
@@ -305,6 +381,7 @@
           <Property Name="PayBureauNum" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
           <Property Name="PayAccount" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CourseSchedule" Relationship="CitcModel.FK_CourseSchedule_Teacher" FromRole="Teacher" ToRole="CourseSchedule" />
         </EntityType>
         <Association Name="FK_AnnualCourse_ClassInfo">
           <End Type="CitcModel.ClassInfo" Role="ClassInfo" Multiplicity="1" />
@@ -389,6 +466,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CourseSchedule">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="Sn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LessonStart" Type="Int32" Nullable="false" />
+          <Property Name="LessonEnd" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassSn" Type="Int32" Nullable="false" />
+          <Property Name="CourseSn" Type="Int32" />
+          <Property Name="TeacherSn" Type="Int32" />
+          <Property Name="OtherEvent" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClassInfo" Relationship="CitcModel.FK_CourseSchedule_ClassInfo" FromRole="CourseSchedule" ToRole="ClassInfo" />
+          <NavigationProperty Name="Course" Relationship="CitcModel.FK_CourseSchedule_Course" FromRole="CourseSchedule" ToRole="Course" />
+          <NavigationProperty Name="Teacher" Relationship="CitcModel.FK_CourseSchedule_Teacher" FromRole="CourseSchedule" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="FK_CourseSchedule_ClassInfo">
+          <End Type="CitcModel.ClassInfo" Role="ClassInfo" Multiplicity="1" />
+          <End Type="CitcModel.CourseSchedule" Role="CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassInfo">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="ClassSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseSchedule_Course">
+          <End Type="CitcModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="CitcModel.CourseSchedule" Role="CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="CourseSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseSchedule_Teacher">
+          <End Type="CitcModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="CitcModel.CourseSchedule" Role="CourseSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Sn" />
+            </Principal>
+            <Dependent Role="CourseSchedule">
+              <PropertyRef Name="TeacherSn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -451,7 +581,6 @@
                 <ScalarProperty Name="ClassSn" ColumnName="ClassSn" />
                 <ScalarProperty Name="PptPath" ColumnName="PptPath" />
                 <ScalarProperty Name="PdfPath" ColumnName="PdfPath" />
-                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="ReportTitle" ColumnName="ReportTitle" />
                 <ScalarProperty Name="StudentNo" ColumnName="StudentNo" />
@@ -494,6 +623,21 @@
                 <ScalarProperty Name="StudentName" ColumnName="StudentName" />
                 <ScalarProperty Name="ClassInfoSn" ColumnName="ClassInfoSn" />
                 <ScalarProperty Name="BookInfoSn" ColumnName="BookInfoSn" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseSchedule">
+            <EntityTypeMapping TypeName="CitcModel.CourseSchedule">
+              <MappingFragment StoreEntitySet="CourseSchedule">
+                <ScalarProperty Name="OtherEvent" ColumnName="OtherEvent" />
+                <ScalarProperty Name="TeacherSn" ColumnName="TeacherSn" />
+                <ScalarProperty Name="CourseSn" ColumnName="CourseSn" />
+                <ScalarProperty Name="ClassSn" ColumnName="ClassSn" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LessonEnd" ColumnName="LessonEnd" />
+                <ScalarProperty Name="LessonStart" ColumnName="LessonStart" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Sn" ColumnName="Sn" />
               </MappingFragment>
             </EntityTypeMapping>

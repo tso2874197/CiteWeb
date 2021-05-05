@@ -20,6 +20,7 @@ namespace CitcWeb.Domain
             this.AnnualCourse = new HashSet<AnnualCourse>();
             this.StudentReport = new HashSet<StudentReport>();
             this.BorrowHistory = new HashSet<BorrowHistory>();
+            this.CourseSchedule = new HashSet<CourseSchedule>();
         }
     
         public int Sn { get; set; }
@@ -33,5 +34,7 @@ namespace CitcWeb.Domain
         public virtual ICollection<StudentReport> StudentReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BorrowHistory> BorrowHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseSchedule> CourseSchedule { get; set; }
     }
 }

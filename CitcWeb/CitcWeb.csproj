@@ -169,6 +169,7 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LifePicturesController.cs" />
+    <Compile Include="Controllers\StudentReportsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Domain\AnnualCourse.cs">
       <DependentUpon>CitcModel.tt</DependentUpon>
@@ -198,6 +199,9 @@
       <DependentUpon>CitcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Course.cs">
+      <DependentUpon>CitcModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\CourseSchedule.cs">
       <DependentUpon>CitcModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\LifePicture.cs">
@@ -239,7 +243,7 @@
     <Compile Include="Repository\Interface\ICourseRepository.cs" />
     <Compile Include="Repository\Interface\ILifePictureRepository.cs" />
     <Compile Include="Repository\Interface\IPayRankRepository.cs" />
-    <Compile Include="Repository\Interface\IStudentTopicRepository.cs" />
+    <Compile Include="Repository\Interface\IStudentReportRepository.cs" />
     <Compile Include="Repository\Interface\ITeacherRepository.cs" />
     <Compile Include="Repository\LifePictureRepository.cs" />
     <Compile Include="Repository\PayRankRepository.cs" />
@@ -253,9 +257,11 @@
     <Compile Include="Services\Interface\ICourseService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
     <Compile Include="Services\Interface\ISelectListService.cs" />
+    <Compile Include="Services\Interface\IStudentReportService.cs" />
     <Compile Include="Services\Interface\ITeacherService.cs" />
     <Compile Include="Services\LifePictureService.cs" />
     <Compile Include="Services\SelectListService.cs" />
+    <Compile Include="Services\StudentReportService.cs" />
     <Compile Include="Services\TeacherService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -571,6 +577,9 @@
     <Content Include="Views\AnnualCourses\Create.cshtml" />
     <Content Include="Views\AnnualCourses\Edit.cshtml" />
     <Content Include="Views\AnnualCourses\Index.cshtml" />
+    <Content Include="Views\StudentReports\Create.cshtml" />
+    <Content Include="Views\StudentReports\Edit.cshtml" />
+    <Content Include="Views\StudentReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

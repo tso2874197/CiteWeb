@@ -100,7 +100,6 @@ namespace CitcWeb.Controllers
         public ActionResult Delete(int id)
         {
             _teacherService.TryDelete(id);
-            
             return Redirect(Request.UrlReferrer?.ToString());
         }
         

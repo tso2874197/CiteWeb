@@ -18,6 +18,7 @@ namespace CitcWeb.Domain
         public Course()
         {
             this.AnnualCourse = new HashSet<AnnualCourse>();
+            this.CourseSchedule = new HashSet<CourseSchedule>();
         }
     
         public int Sn { get; set; }
@@ -26,5 +27,7 @@ namespace CitcWeb.Domain
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AnnualCourse> AnnualCourse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseSchedule> CourseSchedule { get; set; }
     }
 }

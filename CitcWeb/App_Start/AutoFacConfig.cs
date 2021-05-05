@@ -33,12 +33,13 @@ namespace CitcWeb.App_Start
             builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerRequest();
             builder.RegisterType<BookService>().As<IBookService>().InstancePerRequest();
             builder.RegisterType<SelectListService>().As<ISelectListService>().InstancePerRequest();
+            builder.RegisterType<StudentReportService>().As<IStudentReportService>().InstancePerRequest();
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)
         {
             builder.RegisterType<LifePictureRepository>().As<ILifePictureRepository>().InstancePerRequest();
-            builder.RegisterType<StudentReportRepository>().As<IStudentTopicRepository>().InstancePerRequest();
+            builder.RegisterType<StudentReportRepository>().As<IStudentReportRepository>().InstancePerRequest();
             builder.RegisterType<ClassInfoRepository>().As<IClassInfoRepository>().InstancePerRequest();
             builder.RegisterType<TeacherRepository>().As<ITeacherRepository>().InstancePerRequest();
             builder.RegisterType<PayRankRepository>().As<IPayRankRepository>().InstancePerRequest();

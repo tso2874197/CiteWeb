@@ -14,6 +14,12 @@ namespace CitcWeb.Domain
     
     public partial class Teacher
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Teacher()
+        {
+            this.CourseSchedule = new HashSet<CourseSchedule>();
+        }
+    
         public int Sn { get; set; }
         public string IdNum { get; set; }
         public string Name { get; set; }
@@ -24,5 +30,8 @@ namespace CitcWeb.Domain
         public string PayBureauNum { get; set; }
         public string PayAccount { get; set; }
         public bool IsValid { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CourseSchedule> CourseSchedule { get; set; }
     }
 }

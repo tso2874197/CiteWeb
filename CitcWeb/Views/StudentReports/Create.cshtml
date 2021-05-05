@@ -1,0 +1,93 @@
+﻿@model CitcWeb.Domain.StudentReport
+
+@{
+    ViewBag.Title = "新增專題";
+}
+
+<h2>新增專題</h2>
+
+@using (Html.BeginForm("Create","StudentReports",FormMethod.Post,new { enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            姓名
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            學號
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StudentNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StudentNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                題目
+                @Html.EditorFor(model => model.ReportTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReportTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            更新時間
+            <div class="col-md-10">
+                @Html.ValidationMessageFor(model => model.UpdateTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            班隊
+            <div class="col-md-10">
+                @Html.DropDownList("ClassSn", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClassSn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            專題檔案
+w           <label class="control-label col-md-2">選擇檔案</label>
+            <div class="col-md-10">
+                <input type="file" name="pdfFile">
+            </div>
+        </div>
+
+        <div class="form-group">
+            簡報檔案
+            <label class="control-label col-md-2">選擇檔案</label>
+            <div class="col-md-10">
+                <input type="file" name="pptFile">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="新增" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回", "Index", null, new { @class = "btn btn-info" })
+</div>
+
+@section styles{
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/select2.full.min.js"></script>
+    <script src="~/Scripts/select2select.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

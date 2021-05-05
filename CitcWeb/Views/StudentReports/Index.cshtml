@@ -1,0 +1,94 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.StudentReport>
+
+@{
+    ViewBag.Title = "學員生專題";
+}
+
+<h2 id="pageTitle">學員生專題 <i id="titleIcon" class="fa fa-toggle-down"></i></h2>
+
+<div id="searchDiv" class="jumbotron">
+    @using (Html.BeginForm("Index", "StudentReports", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <span>姓名：</span> @Html.TextBox("studentName", null, new { @class = "form-control" })
+            <span>題目：</span> @Html.TextBox("reportTitle", null, new { @class = "form-control" })
+            <span>班隊：</span> @Html.TextBox("className", null, new { @class = "form-control" })
+            <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("新增", "Create", null, new { @class = "btn btn-success" })
+</p>
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("Index",new { studentName=ViewBag.studentName,reportTitle=ViewBag.reportTitle,className=ViewBag.className,page=x}))
+<table class="table">
+    <tr>
+        <th>
+            姓名
+        </th>
+        <th>
+            學號
+        </th>
+        <th>
+            題目
+        </th>
+        <th>
+            更新時間
+        </th>
+        <th>
+            班隊名稱
+        </th>
+        <th>
+            專題檔案
+        </th>
+        <th>
+            簡報檔案
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassInfo.ClassName)
+        </td>
+        <td>
+            @if (!string.IsNullOrWhiteSpace(item.PdfPath)) { 
+                <a href="~/Upload/StudentReports/@item.PdfPath"><i class="fa fa-download fa-3x"></i></a>
+            }
+        </td>
+        <td>
+            @if (!string.IsNullOrWhiteSpace(item.PptPath)) { 
+                <a href="~/Upload/StudentReports/@item.PptPath"><i class="fa fa-download fa-3x"></i></a>
+            }
+        </td>
+        <td>
+                @Html.ActionLink("編輯", "Edit", new { id = item.Sn }, new { @class = "btn btn-info" })
+                @Html.ActionLink("刪除", "Delete", new { id = item.Sn }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?');" })
+        </td>
+    </tr>
+}
+
+</table>
+@section styles{
+    <link href="~/Content/searchPage.css" rel="stylesheet" />
+    <link href="~/Content/table.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/searchPage.js"></script>
+}
+

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web.Mvc;
+using CitcWeb.Domain;
 using CitcWeb.Repository.Interface;
 using CitcWeb.Services.Interface;
 
@@ -42,6 +43,11 @@ namespace CitcWeb.Services
             //var courses = _courseRepository.Get(x => courseSns.Contains(x.Sn) == false && x.IsExist==true);
             var courses = _courseRepository.Get(x => x.IsExist==true);
             return new SelectList(courses, "Sn", "Name");
+        }
+
+        public SelectList GetAllClassInfo()
+        {
+            return new SelectList(_classRepository.Get().OrderByDescending(x=>x.Sn), "Sn", "ClassName");
         }
     }
 }
