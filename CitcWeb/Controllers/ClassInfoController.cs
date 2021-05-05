@@ -93,6 +93,11 @@ namespace CitcWeb.Controllers
             _classInfoService.TryDelete(id);
             return Redirect(Request.UrlReferrer?.ToString());
         }
+        public ActionResult Copy(int id)
+        {
+            _classInfoService.Copy(id);
+            return Redirect(Request.UrlReferrer?.ToString());
+        }
 
     }
 }

@@ -13,11 +13,13 @@ namespace CitcWeb.Services
     {
         private readonly IClassInfoRepository _classInfoRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAnnualCourseRepository _annualCourseReposiroty;
 
-        public ClassInfoService(IClassInfoRepository classInfoRepository, IUnitOfWork unitOfWork)
+        public ClassInfoService(IClassInfoRepository classInfoRepository, IUnitOfWork unitOfWork, IAnnualCourseRepository annualCourseReposiroty)
         {
             _classInfoRepository = classInfoRepository;
             _unitOfWork = unitOfWork;
+            _annualCourseReposiroty = annualCourseReposiroty;
         }
 
         public IEnumerable<ClassInfo> Get()
@@ -65,6 +67,28 @@ namespace CitcWeb.Services
                 return;
             }
             _classInfoRepository.Remove(classInfo);
+            _unitOfWork.Commit();
+        }
+
+        public void Copy(int id)
+        {
+            var classInfo = _classInfoRepository.GetById(id);
+            var newClass = new ClassInfo
+            {
+                ClassName = $"{classInfo.ClassName}-複製",
+                StartDate = classInfo.StartDate,
+                EndDate = classInfo.EndDate,
+            };
+            _classInfoRepository.Add(newClass);
+            foreach (var annualCourse in classInfo.AnnualCourse)
+            {
+                _annualCourseReposiroty.Add(new AnnualCourse
+                {
+                    ClassSn = newClass.Sn,
+                    CourseSn = annualCourse.CourseSn,
+                    TotalHour = annualCourse.TotalHour,
+                });
+            }
             _unitOfWork.Commit();
         }
     }

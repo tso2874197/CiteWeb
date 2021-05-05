@@ -13,5 +13,6 @@ namespace CitcWeb.Services.Interface
         void Update(ClassInfo classInfo);
         IEnumerable<ClassInfo> Get(string className);
         void TryDelete(int id);
+        void Copy(int id);
     }
 }
