@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Data.Entity;
 using System.IO;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CitcWeb.Domain;
-using CitcWeb.Services;
 using CitcWeb.Services.Interface;
 using PagedList;
 
@@ -13,7 +11,6 @@ namespace CitcWeb.Controllers
 {
     public class StudentReportsController : Controller
     {
-        private CitcEntities db = new CitcEntities();
         private readonly IStudentReportService _studentReportService;
         private readonly ISelectListService _selectListService;
 

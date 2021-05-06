@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Web.Mvc;
-using CitcWeb.Domain;
 using CitcWeb.Repository.Interface;
 using CitcWeb.Services.Interface;
 
@@ -13,14 +11,12 @@ namespace CitcWeb.Services
         private readonly IBookInfoRepository _bookInfoRepository;
         private readonly IClassInfoRepository _classRepository;
         private readonly ICourseRepository _courseRepository;
-        private readonly IAnnualCourseRepository _annualCourseRepository;
 
-        public SelectListService(IBookInfoRepository bookInfoRepository, IClassInfoRepository classRepository, ICourseRepository courseRepository, IAnnualCourseRepository annualCourseRepository)
+        public SelectListService(IBookInfoRepository bookInfoRepository, IClassInfoRepository classRepository, ICourseRepository courseRepository)
         {
             _bookInfoRepository = bookInfoRepository;
             _classRepository = classRepository;
             _courseRepository = courseRepository;
-            _annualCourseRepository = annualCourseRepository;
         }
 
         public SelectList GetBookInfo()
@@ -41,7 +37,7 @@ namespace CitcWeb.Services
         {
             //var courseSns = _annualCourseRepository.Get(x => x.ClassSn == classSn).Select(x=>x.CourseSn);
             //var courses = _courseRepository.Get(x => courseSns.Contains(x.Sn) == false && x.IsExist==true);
-            var courses = _courseRepository.Get(x => x.IsExist==true);
+            var courses = _courseRepository.Get(x => x.IsExist);
             return new SelectList(courses, "Sn", "Name");
         }
 

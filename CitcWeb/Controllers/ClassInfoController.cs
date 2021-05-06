@@ -34,9 +34,6 @@ namespace CitcWeb.Controllers
             }
 
             return View(classInfo.ToPagedList(page, 3));
-
-            var classInfos = _classInfoService.Get().ToPagedList(page,10);
-            return View(classInfos);
         }
 
 
