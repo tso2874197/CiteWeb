@@ -1,0 +1,127 @@
+﻿@model CitcWeb.Domain.CourseSchedule
+
+@{
+    ViewBag.Title = "排課";
+}
+
+<h2>排課</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (ViewBag.addResult!=null) { 
+            <div class="alert alert-danger">
+                @ViewBag.addResult
+            </div>
+        
+        }
+        @if (ViewBag.teacherError!=null) { 
+            <div class="alert alert-danger">
+                @ViewBag.teacherError
+                @Html.Hidden("confirmError",true);
+            </div>
+        
+        }
+        <div class="form-group">
+            上課日期
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            開始上課節數
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.LessonStart, new { htmlAttributes = new { @class = "form-control", @required = "required" } })*@
+                @Html.DropDownListFor(model => model.LessonStart, null,"請選擇", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LessonStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            結束上課節數
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.LessonEnd, null,"請選擇", htmlAttributes: new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.LessonEnd, new { htmlAttributes = new { @class = "form-control", @required = "required" } })*@
+                @Html.ValidationMessageFor(model => model.LessonEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            上課地點
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.Location, "必須要填寫上課地點", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="leftDiv alert alert-secondary">
+<h4>非一般課程</h4>
+        <div class="form-group">
+            其他事件
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OtherEvent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OtherEvent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        </div>
+
+<div class="leftDiv alert alert-danger">
+
+<h4>一般課程</h4>
+                @Html.HiddenFor(model => model.ClassSn)
+        <div class="form-group">
+            課程
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CourseSn, null,"請選擇", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseSn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            教官
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TeacherSn, null,"請選擇", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TeacherSn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+</div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="新增" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回", "ClassIndex", null, new { @class = "btn btn-info" })
+</div>
+
+@section styles{
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+    <style>
+        .leftDiv {
+            display: table-cell;
+            /*vertical-align: middle;*/
+            float: none;
+            padding: 0 0 0 0;
+        }
+    </style>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryUI")
+    <script src="~/Scripts/select2.full.min.js"></script>
+    <script src="~/Scripts/select2select.js"></script>
+    <script src="~/Scripts/datepickerSet.js"></script>
+}

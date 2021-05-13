@@ -166,6 +166,7 @@
     <Compile Include="Controllers\BookInfoController.cs" />
     <Compile Include="Controllers\BorrowHistoriesController.cs" />
     <Compile Include="Controllers\ClassInfoController.cs" />
+    <Compile Include="Controllers\CourseSchedulesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LifePicturesController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Models\BookCsvModel.cs" />
     <Compile Include="Models\ClassCsvModel.cs" />
     <Compile Include="Models\CourseCsvModel.cs" />
+    <Compile Include="Models\CourseScheduleModel.cs" />
     <Compile Include="Models\Csv\CsvableBase.cs" />
     <Compile Include="Models\Csv\CsvReader.cs" />
     <Compile Include="Models\Csv\CsvWriter.cs" />
@@ -236,11 +238,13 @@
     <Compile Include="Repository\BorrowHistoryRepository.cs" />
     <Compile Include="Repository\ClassInfoRepository.cs" />
     <Compile Include="Repository\CourseRepository.cs" />
+    <Compile Include="Repository\CourseScheduleRepository.cs" />
     <Compile Include="Repository\Interface\IAnnualCourseRepository.cs" />
     <Compile Include="Repository\Interface\IBookInfoRepository.cs" />
     <Compile Include="Repository\Interface\IBorrowHistoryRepository.cs" />
     <Compile Include="Repository\Interface\IClassInfoRepository.cs" />
     <Compile Include="Repository\Interface\ICourseRepository.cs" />
+    <Compile Include="Repository\Interface\ICourseScheduleRepository.cs" />
     <Compile Include="Repository\Interface\ILifePictureRepository.cs" />
     <Compile Include="Repository\Interface\IPayRankRepository.cs" />
     <Compile Include="Repository\Interface\IStudentReportRepository.cs" />
@@ -251,9 +255,11 @@
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\ClassInfoService.cs" />
+    <Compile Include="Services\CourseScheduleService.cs" />
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\Interface\IBookService.cs" />
     <Compile Include="Services\Interface\IClassInfoService.cs" />
+    <Compile Include="Services\Interface\ICourseScheduleService.cs" />
     <Compile Include="Services\Interface\ICourseService.cs" />
     <Compile Include="Services\Interface\ILifePictureService.cs" />
     <Compile Include="Services\Interface\ISelectListService.cs" />
@@ -580,6 +586,9 @@
     <Content Include="Views\StudentReports\Create.cshtml" />
     <Content Include="Views\StudentReports\Edit.cshtml" />
     <Content Include="Views\StudentReports\Index.cshtml" />
+    <Content Include="Views\CourseSchedules\Create.cshtml" />
+    <Content Include="Views\CourseSchedules\Index.cshtml" />
+    <Content Include="Views\CourseSchedules\ClassIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

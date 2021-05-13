@@ -1,0 +1,33 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<CitcWeb.Domain.ClassInfo>
+
+@{
+    ViewBag.Title = "班隊課表檢索";
+}
+
+<h2 id="pageTitle">班隊課表檢索 <i id="titleIcon" class="fa fa-toggle-down"></i></h2>
+<div id="searchDiv" class="jumbotron">
+    @using (Html.BeginForm("ClassIndex", "CourseSchedules", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <span>班隊名稱：</span> @Html.TextBox("className", null, new { @class = "form-control" })
+            <input type="submit" value="搜尋" class="col- btn btn-primary offset-md-1" />
+        </div>
+    }
+</div>
+@Html.PagedListPager((IPagedList)Model,x=>Url.Action("ClassIndex",new { page=x,className=ViewBag.className}))
+@foreach (var item in Model)
+{
+    <a href="/CourseSchedules/Index?classSn=@item.Sn" class="btn btn-outline-dark col-md-5" target="_blank">
+        @Html.DisplayFor(modelItem => item.ClassName)
+    </a>   
+}
+
+@section styles{
+    <link href="~/Content/searchPage.css" rel="stylesheet" />
+    <link href="~/Content/table.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/Scripts/searchPage.js"></script>
+}

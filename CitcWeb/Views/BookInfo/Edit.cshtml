@@ -19,7 +19,7 @@
     <div class="form-group">
         書名
         <div class="col-md-10">
-            @Html.EditorFor(model => model.BookName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.BookName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
             @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -28,7 +28,7 @@
         圖書編號
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.BookNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.BookNumber, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.BookNumber, "", new { @class = "text-danger" })
             </div>
         </div>

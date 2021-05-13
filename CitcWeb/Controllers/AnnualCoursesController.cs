@@ -41,7 +41,7 @@ namespace CitcWeb.Controllers
         private void PrepareSelectList(int classSn)
         {
             ViewBag.ClassSn = _selectListService.GetClassInfo();
-            ViewBag.CourseSn = _selectListService.GetCourse(classSn);
+            ViewBag.CourseSn = _selectListService.GetCourse();
         }
 
         // POST: AnnualCourses/Create

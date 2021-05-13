@@ -34,6 +34,7 @@ namespace CitcWeb.App_Start
             builder.RegisterType<BookService>().As<IBookService>().InstancePerRequest();
             builder.RegisterType<SelectListService>().As<ISelectListService>().InstancePerRequest();
             builder.RegisterType<StudentReportService>().As<IStudentReportService>().InstancePerRequest();
+            builder.RegisterType<CourseScheduleService>().As<ICourseScheduleService>().InstancePerRequest();
         }
 
         private static void RegisterRepositories(ContainerBuilder builder)
@@ -47,6 +48,7 @@ namespace CitcWeb.App_Start
             builder.RegisterType<AnnualCourseRepository>().As<IAnnualCourseRepository>().InstancePerRequest();
             builder.RegisterType<BookInfoRepository>().As<IBookInfoRepository>().InstancePerRequest();
             builder.RegisterType<BorrowHistoryRepository>().As<IBorrowHistoryRepository>().InstancePerRequest();
+            builder.RegisterType<CourseScheduleRepository>().As<ICourseScheduleRepository>().InstancePerRequest();
         }
 
         private static void RegisterGeneralComponent(ContainerBuilder builder)

@@ -6,7 +6,10 @@ namespace CitcWeb.Services.Interface
     {
         SelectList GetBookInfo();
         SelectList GetClassInfo();
-        SelectList GetCourse(int classSn);
+        SelectList GetCourse();
         SelectList GetAllClassInfo();
+        SelectList GetLessonStartEnd();
+        SelectList GetLeftCourse(int classSn);
+        SelectList GetTeacher();
     }
 }
