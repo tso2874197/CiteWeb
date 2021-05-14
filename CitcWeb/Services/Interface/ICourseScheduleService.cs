@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CitcWeb.Domain;
 using CitcWeb.Models;
 
@@ -8,6 +9,6 @@ namespace CitcWeb.Services.Interface
     {
         IEnumerable<CourseScheduleModel> Get(int classSn);
         string Add(CourseSchedule courseSchedule, bool confirmError);
-        void Delete(int sn);
+        DateTime Delete(int sn);
     }
 }

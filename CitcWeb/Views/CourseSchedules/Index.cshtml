@@ -61,14 +61,14 @@ switch(dayOfWeek)
     </tr>
     @foreach (var day in item.CourseSchedules.Select(x => x.Date).Distinct()) {
         <tr>
-            <td><br />@day.ToString("MM/dd") <br />@GetDayOfWeek(day.DayOfWeek)</td><td><p>課目</p><p>時數</p><p>教官</p><p style="border-bottom:unset">地點</p></td>
+            <td id="@day.ToString("MM/dd")"><br />@day.ToString("MM/dd") <br />@GetDayOfWeek(day.DayOfWeek)</td><td><p>課目</p><p>時數</p><p>教官</p><p style="border-bottom:unset">地點</p></td>
             @foreach( var schedule in item.CourseSchedules.Where(x=>x.Date==day)){
                     if (schedule.Course == null)
                     {
                     <td colspan="@(schedule.LessonEnd - schedule.LessonStart + 1)">
                             @if (schedule.OtherEvent == "未排課")
                                 {
-                                <a href="/CourseSchedules/Create?date=@(schedule.Date.ToShortDateString())&lesson=@(schedule.LessonStart)&classSn=@(item.ClassSn)">
+                                <a class="newCourseLink" href="/CourseSchedules/Create?date=@(schedule.Date.ToShortDateString())&lesson=@(schedule.LessonStart)&classSn=@(item.ClassSn)">
                                     <span style="font-size:x-large">@schedule.OtherEvent</span>
                                 </a>
                             }
@@ -117,6 +117,7 @@ switch(dayOfWeek)
 </table>
     <p style="page-break-after:always"></p>
 }
+
 <style>
     td{
         text-align:center; 

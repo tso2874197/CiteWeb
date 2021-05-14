@@ -589,6 +589,7 @@
     <Content Include="Views\CourseSchedules\Create.cshtml" />
     <Content Include="Views\CourseSchedules\Index.cshtml" />
     <Content Include="Views\CourseSchedules\ClassIndex.cshtml" />
+    <Content Include="Views\CourseSchedules\Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="leftDiv alert alert-secondary">
+        <div class="leftDiv alert alert-secondary" style="min-width:400px">
 <h4>非一般課程</h4>
         <div class="form-group">
             其他事件
@@ -72,14 +72,14 @@
 
         </div>
 
-<div class="leftDiv alert alert-danger">
+<div class="leftDiv alert alert-danger"  style="min-width:400px">
 
 <h4>一般課程</h4>
                 @Html.HiddenFor(model => model.ClassSn)
         <div class="form-group">
             課程
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CourseSn, null,"請選擇", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CourseSn, null,"請選擇", htmlAttributes: new { @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.CourseSn, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -103,10 +103,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("返回", "ClassIndex", null, new { @class = "btn btn-info" })
-</div>
-
 @section styles{
     <link href="~/Content/select2.min.css" rel="stylesheet" />
     <style>
@@ -121,7 +117,4 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryUI")
-    <script src="~/Scripts/select2.full.min.js"></script>
-    <script src="~/Scripts/select2select.js"></script>
-    <script src="~/Scripts/datepickerSet.js"></script>
 }

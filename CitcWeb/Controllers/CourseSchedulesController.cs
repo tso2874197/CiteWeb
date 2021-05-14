@@ -75,7 +75,7 @@ namespace CitcWeb.Controllers
                 var result = _courseScheduleService.Add(courseSchedule,confirmError);
                 if (result == null)
                 {
-                    return RedirectToAction("ClassIndex");
+                    return Redirect($"/CourseSchedules/Index?classSn={courseSchedule.ClassSn}#{courseSchedule.Date:MM/dd}");
                 }
                 else if (result.Contains("本月上課時數將會超過16小時"))
                 {
@@ -87,15 +87,13 @@ namespace CitcWeb.Controllers
                 }
 
             }
-
-
             PrepareSelectList(courseSchedule.ClassSn);
             return View(courseSchedule);
         }
         public ActionResult Delete(int Sn)
         {
-            _courseScheduleService.Delete(Sn);
-            return Redirect(Request.UrlReferrer?.ToString());
+            var dateTime = _courseScheduleService.Delete(Sn);
+            return Redirect(Request.UrlReferrer?.ToString()+$"#{dateTime:MM/dd}");
         }
 
 

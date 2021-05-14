@@ -108,10 +108,13 @@ namespace CitcWeb.Services
             
         }
 
-        public void Delete(int sn)
+        public DateTime Delete(int sn)
         {
-            _courseScheduleRepository.Remove(x=>x.Sn==sn);
+            var courseSchedule = _courseScheduleRepository.GetById(sn);
+            var courseScheduleDate = courseSchedule.Date;
+            _courseScheduleRepository.Remove(courseSchedule);
             _unitOfWork.Commit();
+            return courseScheduleDate;
         }
 
         private IEnumerable<DateTime> EachWeekDay(DateTime startDate, DateTime endDate)
