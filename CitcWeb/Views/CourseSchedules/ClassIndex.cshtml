@@ -19,7 +19,7 @@
 @Html.PagedListPager((IPagedList)Model,x=>Url.Action("ClassIndex",new { page=x,className=ViewBag.className}))
 @foreach (var item in Model)
 {
-    <a href="/CourseSchedules/Index?classSn=@item.Sn" class="btn btn-outline-dark col-md-5" target="_blank">
+    <a href="/CourseSchedules/Index?classSn=@(item.Sn)#week@((DateTime.Now-item.StartDate).Days/7+1)" class="btn btn-outline-dark col-md-5" target="_blank">
         @Html.DisplayFor(modelItem => item.ClassName)
     </a>   
 }

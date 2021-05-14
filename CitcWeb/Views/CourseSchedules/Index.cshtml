@@ -4,7 +4,36 @@
     Layout = null;
     Dictionary<int, int> currentCourseHourLookup = new Dictionary<int, int>();
 }
-<!DOCTYPE html>
+
+@helper GetDayOfWeek(DayOfWeek dayOfWeek){
+switch(dayOfWeek)
+{
+    case DayOfWeek.Monday:
+        <span>星期一</span>
+        break;
+    case DayOfWeek.Tuesday:
+        <span>星期二</span>
+        break;
+    case DayOfWeek.Wednesday:
+        <span>星期三</span>
+        break;
+    case DayOfWeek.Thursday:
+        <span>星期四</span>
+        break;
+    case DayOfWeek.Friday:
+        <span>星期五</span>
+        break;
+    case DayOfWeek.Saturday:
+        <span>星期六</span>
+        break;
+    case DayOfWeek.Sunday:
+        <span>星期日</span>
+        break;
+
+}
+}
+
+            <!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,58 +45,52 @@
 
 @foreach(var item in Model)
 {
-<div class="col-md-12">
-    <div class="row">
-        <div class="col-md-12">
-        軍事情報學校@(item.ClassName)第 @(item.Week) 週教育課程表
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">節次</div><div class="col-md-1">0</div><div class="col-md-1">1</div><div class="col-md-1">2</div><div class="col-md-1">3</div><div class="col-md-1">4</div><div class="col-md-1">5</div><div class="col-md-1">6</div><div class="col-md-1">7</div><div class="col-md-1">8</div><div class="col-md-1">晚自習(一)</div><div class="col-md-1">晚自習(二)</div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">時間<br />課程<br />日期</div>
-        @if(item.Month > 4 && item.Month < 11) {
-            <div class="col-md-1">0530<br />|<br />0750</div><div class="col-md-1">0800<br />|<br />0850</div><div class="col-md-1">0900<br />|<br />0950</div><div class="col-md-1">1000<br />|<br />1050</div><div class="col-md-1">1100<br />|<br />1150</div><div class="col-md-1">1400<br />|<br />1450</div><div class="col-md-1">1500<br />|<br />1550</div><div class="col-md-1">1600<br />|<br />1650</div><div class="col-md-1">1630<br />|<br />1720</div><div class="col-md-1">1930<br />|<br />2020</div><div class="col-md-1">2030<br />|<br />2130</div>
+<table id="week@(item.Week)" width="95%" align="center">
+    <tr><td colspan="13" style="font-size:x-large">軍事情報學校@(item.ClassName)第 @(item.Week) 週教育課程表</td></tr>
+    <tr><td colspan="2">節次</td><td width="8%">0</td><td width="8%">1</td><td width="8%">2</td><td width="8%">3</td><td width="8%">4</td><td width="8%">5</td><td width="8%">6</td><td width="8%">7</td><td width="8%">8</td><td width="8%">晚自習(一)</td><td width="8%">晚自習(二)</td></tr>
+    <tr>
+        <td colspan="2"><div>時間<br />課程<br />日期</div></td>
+        @if (item.Month > 4 && item.Month < 11)
+        {
+            <td>0530<br />|<br />0750</td> <td>0800<br />|<br />0850</td> <td>0900<br />|<br />0950</td> <td>1000<br />|<br />1050</td> <td>1100<br />|<br />1150</td> <td>1400<br />|<br />1450</td> <td>1500<br />|<br />1550</td> <td>1600<br />|<br />1650</td> <td>1630<br />|<br />1720</td> <td>1930<br />|<br />2020</td> <td>2030<br />|<br />2130</td>
         }
         else
-        {
-            <div class="col-md-1">0600<br />|<br />0750</div><div class="col-md-1">0800<br />|<br />0850</div><div class="col-md-1">0900<br />|<br />0950</div><div class="col-md-1">1000<br />|<br />1050</div><div class="col-md-1">1100<br />|<br />1150</div><div class="col-md-1">1330<br />|<br />1420</div><div class="col-md-1">1430<br />|<br />1520</div><div class="col-md-1">1530<br />|<br />1620</div><div class="col-md-1">1630<br />|<br />1720</div><div class="col-md-1">1930<br />|<br />2020</div><div class="col-md-1">2030<br />|<br />2130</div>
+            {
+            <td>0600<br />|<br />0750</td> <td>0800<br />|<br />0850</td> <td>0900<br />|<br />0950</td> <td>1000<br />|<br />1050</td> <td>1100<br />|<br />1150</td> <td>1330<br />|<br />1420</td> <td>1430<br />|<br />1520</td> <td>1530<br />|<br />1620</td> <td>1630<br />|<br />1720</td> <td>1930<br />|<br />2020</td> <td>2030<br />|<br />2130</td>
         }
-    </div>
-
-    @foreach(var day in item.CourseSchedules.Select(x=>x.Date).Distinct())
-    {
-        <div class="row">
-        <div class="col-md-1">
-            <div class="leftDiv" style="padding-left:-20px"><br />@day.ToString("MM/dd") <br />星期@((int)day.DayOfWeek)</div>
-            <div class="leftDiv" ><div>科目</div><div>時數</div><div>教官</div><div>地點</div></div>
-        </div>
+    </tr>
+    @foreach (var day in item.CourseSchedules.Select(x => x.Date).Distinct()) {
+        <tr>
+            <td><br />@day.ToString("MM/dd") <br />@GetDayOfWeek(day.DayOfWeek)</td><td><p>課目</p><p>時數</p><p>教官</p><p style="border-bottom:unset">地點</p></td>
             @foreach( var schedule in item.CourseSchedules.Where(x=>x.Date==day)){
-                if (schedule.Course == null)
-                {
-                    <div class="col-md-@(schedule.LessonEnd - schedule.LessonStart + 1)">
-                        <div>
+                    if (schedule.Course == null)
+                    {
+                    <td colspan="@(schedule.LessonEnd - schedule.LessonStart + 1)">
                             @if (schedule.OtherEvent == "未排課")
-                            {
+                                {
                                 <a href="/CourseSchedules/Create?date=@(schedule.Date.ToShortDateString())&lesson=@(schedule.LessonStart)&classSn=@(item.ClassSn)">
-                                    @schedule.OtherEvent
+                                    <span style="font-size:x-large">@schedule.OtherEvent</span>
                                 </a>
                             }
-                            else
+                            else if (schedule.LessonEnd - schedule.LessonStart > 0)
                             {
                                 <a href="/CourseSchedules/Delete?Sn=@(schedule.Sn)" onclick="return confirm('確定要刪除嗎？')">
-                                    <div><div>@schedule.OtherEvent</div><div><br /></div><div><br /></div><div>@schedule.Location</div></div>
+                                    <span style="font-size:x-large">@schedule.OtherEvent</span>
                                 </a>
                             }
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-md-@(schedule.LessonEnd - schedule.LessonStart + 1)">
-                        @*<div><div>中共五大戰區研究</div><div>7/7</div><div>XXX少校</div><div>專一</div></div>*@
-                        @{
+                            else 
+                            {
+                                <a href="/CourseSchedules/Delete?Sn=@(schedule.Sn)" onclick="return confirm('確定要刪除嗎？')">
+                                    <p>@schedule.OtherEvent</p>
+                                    <p style="border-bottom:unset">@schedule.Location</p>
+                                </a>
+                            }
+                    </td>
+                    }
+                    else
+                    {
+                    <td colspan="@(schedule.LessonEnd - schedule.LessonStart + 1)">
+                          @{
                             if (!currentCourseHourLookup.ContainsKey(schedule.CourseSn.Value))
                             {
                                 currentCourseHourLookup[schedule.CourseSn.Value] = 0;
@@ -75,54 +98,52 @@
                             currentCourseHourLookup[schedule.CourseSn.Value] = currentCourseHourLookup[schedule.CourseSn.Value] + schedule.LessonEnd - schedule.LessonStart + 1;
                         }
                                 <a href="/CourseSchedules/Delete?Sn=@(schedule.Sn)" onclick="return confirm('確定要刪除嗎？')">
-                        <div><div>
-                            @schedule.Course.Name
-                            </div><div>@(currentCourseHourLookup[schedule.CourseSn.Value])/@(item.CourseHourLookup[schedule.CourseSn.Value])</div><div>@schedule.Teacher.Name</div><div>@schedule.Location</div></div>
-                                    </a>
-                    </div>
+                                    <p>@schedule.Course.Name</p>
+                                    <p>@(currentCourseHourLookup[schedule.CourseSn.Value])/@(item.CourseHourLookup[schedule.CourseSn.Value])</p>
+                                    <p>@schedule.Teacher.Name</p>
+                                    <p style="border-bottom:unset">@schedule.Location</p>
+                        </td>
+                    }
                 }
-            }
-        </div>
-    }
 
-    <div class="row" style="height:100px">
-        <div class="col-md-1">附記</div>
-        <div class="col-md-11"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">核轉主官意見</div>
-        <div class="col-md-4">中隊部</div>
-        <div class="col-md-4">批示</div>
-    </div>
-    <div class="row" style="height:250px">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-    </div>
-    </div>
+
+        </tr>
+    }
+    <tr><td>附記</td><td colspan="12" height="150px"></td></tr>
+    <tr><td colspan="4">核轉主官意見</td><td colspan="4">中隊部</td><td colspan="5">批示</td></tr>
+    <tr><td colspan="4" height="350px">請核示。</td><td colspan="4"></td><td colspan="5"></td></tr>
+
+
+</table>
     <p style="page-break-after:always"></p>
 }
 <style>
-    .col-md-1 ,.col-md-2, .col-md-3 ,.col-md-4, .col-md-5 ,.col-md-6 ,.col-md-7 ,.col-md-8 ,.col-md-9 ,.col-md-10 ,.col-md-11 ,.col-md-12 {
-        /*padding:0 0 0 0 ;*/
+    td{
+        text-align:center; 
         border:solid 1px black;
         border-collapse:collapse;
         border-spacing:0;
+        font-family:DFKai-SB;
     }
-    div{
-        text-align:center;
-
+    p{
+        margin:0 0 0 0 ;
+        border-bottom:solid 1px black;
     }
-    .leftDiv{
-        /*float:left;*/
-        display:table-cell;
-        vertical-align:middle;
-        float:none;
-        padding:0 0 0 0;
-        font-size:x-small;
-        width:50%;
+    a{
+        /*color:black;*/
+        text-decoration:none;
+    }
+    a:hover{
+        text-decoration:none;
     }
     @@page{
         margin:0.5cm;
     }
+    @@media print{
+        a:link,a:visited,a{
+            text-decoration:none;
+            color:black;
+        }
+    }
+
 </style>
